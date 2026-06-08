@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ポスト・アニマ ── 公式設定資料</title>
+<style>
+  :root{
+    --bg:#ece3d0; --card:#fbf8f1; --ink:#40382b; --muted:#7c7059;
+    --accent:#a9854c; --line:#ddd0b4; --th:#ece0c8; --soft:#f4eddd;
+    --lux:#b08a36; --nox:#3c372f; --fire:#b5502e; --water:#3f7196;
+    --ice:#5f86a3; --earth:#8a7144; --shadow:rgba(64,56,43,.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:120px;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP","Meiryo",sans-serif;
+    line-height:1.85; font-size:16px; -webkit-font-smoothing:antialiased;
+  }
+  /* ===== sticky header / nav ===== */
+  .topbar{position:sticky; top:0; z-index:50; background:rgba(236,227,208,.93);
+    backdrop-filter:blur(6px); border-bottom:1px solid var(--line);}
+  .brand{max-width:1000px; margin:0 auto; padding:14px 24px 4px; display:flex;
+    align-items:baseline; gap:12px; flex-wrap:wrap;}
+  .brand h1{font-size:23px; margin:0; letter-spacing:.05em; color:#4a3d28;}
+  .brand .v{font-size:13px; color:var(--accent); font-weight:700;}
+  .brand .tagline{font-size:12.5px; color:var(--muted); margin-left:auto;}
+  nav.tabs{max-width:1000px; margin:0 auto; padding:4px 16px 10px;
+    display:flex; gap:6px; flex-wrap:wrap;}
+  .tab{cursor:pointer; border:1px solid var(--line); background:var(--card);
+    color:var(--muted); padding:7px 14px; border-radius:20px; font-size:13.5px;
+    font-weight:600; transition:.15s; white-space:nowrap;}
+  .tab:hover{border-color:var(--accent); color:var(--ink);}
+  .tab.on{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .tab .n{opacity:.65; margin-right:5px; font-size:12px;}
+  /* ===== layout ===== */
+  .wrap{max-width:1000px; margin:26px auto 60px; padding:0 24px;}
+  body.wide-page .wrap, body.wide-page .brand, body.wide-page nav.tabs{max-width:min(2000px,96vw);}
+  .page{display:none; animation:fade .25s ease; overflow-wrap:anywhere;}
+  .page.active{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+  .lead{font-size:14px; color:var(--muted); margin:-4px 0 18px;}
+  h2{font-size:21px; margin:34px 0 12px; padding:6px 0 6px 14px;
+    border-left:6px solid var(--accent); color:#4a3d28;}
+  h2:first-of-type{margin-top:6px;}
+  h3{font-size:16.5px; margin:22px 0 8px; color:#5e4f34;}
+  p{margin:8px 0;}
+  a{color:var(--accent);}
+  .hero{background:var(--soft); border-left:4px solid var(--accent);
+    padding:18px 22px; border-radius:6px; margin:6px 0 8px; font-size:15.5px; line-height:1.95;}
+  table{width:100%; border-collapse:collapse; margin:12px 0; font-size:14.5px;}
+  th,td{border:1px solid var(--line); padding:8px 11px; text-align:left; vertical-align:top;}
+  th{background:var(--th); font-weight:600; color:#4a3d28;}
+  tr:nth-child(even) td{background:#faf6ec;}
+  .note{background:var(--soft); border:1px dashed var(--accent); border-radius:6px;
+    padding:13px 17px; margin:14px 0; font-size:14.5px;}
+  .quote{font-style:normal; background:#f7f1e3; border-left:3px solid var(--lux);
+    padding:8px 14px; margin:8px 0; border-radius:4px; color:#5b4d33;}
+  ul{margin:8px 0; padding-left:22px;} li{margin:4px 0;}
+  .lux{color:var(--lux); font-weight:700;} .nox{color:var(--nox); font-weight:700;}
+  .pill{display:inline-block; font-size:11.5px; padding:1px 9px; border-radius:10px;
+    background:var(--soft); border:1px solid var(--line); color:var(--muted);}
+  /* overview blocks */
+  .core-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:12px 0 18px;}
+  .core-card{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; box-shadow:0 1px 0 var(--shadow);}
+  .core-card .eyebrow{display:block; color:var(--accent); font-size:11.5px; font-weight:700; letter-spacing:.06em; margin-bottom:4px;}
+  .core-card b{display:block; color:#4a3d28; font-size:15.5px; margin-bottom:4px;}
+  .core-card p{font-size:13.5px; margin:0; color:#5d5344; line-height:1.75;}
+  .two-col{display:grid; grid-template-columns:minmax(0,1.08fr) minmax(280px,.92fr); gap:16px; align-items:start; margin:12px 0;}
+  .summary-box{background:#fbfaf5; border:1px solid var(--line); border-radius:8px; padding:14px 16px;}
+  .summary-box h3{margin-top:0;}
+  .process{display:grid; grid-template-columns:repeat(7,minmax(118px,1fr)); gap:8px; margin:14px 0; align-items:stretch;}
+  .process-step{position:relative; background:var(--card); border:1px solid var(--line); border-radius:8px; padding:11px 12px; min-height:108px;}
+  .process-step:not(:last-child)::after{content:""; position:absolute; right:-8px; top:50%; width:8px; border-top:2px solid var(--accent); opacity:.55;}
+  .process-step .num{display:inline-block; min-width:24px; text-align:center; border-radius:999px; background:var(--accent); color:#fff; font-size:11px; font-weight:700; line-height:1.8; margin-bottom:4px;}
+  .process-step b{display:block; color:#4a3d28; line-height:1.45;}
+  .process-step small{display:block; color:var(--muted); font-size:11.5px; line-height:1.55; margin-top:3px;}
+  .route-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin:10px 0 16px;}
+  .route-card{border-radius:8px; padding:14px 16px; font-size:14px; border:1px solid var(--line); background:var(--card);}
+  .route-card h4{margin:0 0 6px; font-size:14px; color:#4a3d28;}
+  .route-card.decode{border-color:var(--lux); background:#fbf6e6;}
+  .route-card.purge{border-color:#bcb09b; background:#f1ebe0;}
+  table.term-table .term-group th{background:#6a5a3f; color:#fff; letter-spacing:.04em; font-size:13px;}
+  .attr-split{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr); gap:16px; margin:12px 0;}
+  .polarity{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;}
+  .polarity .core-card{min-height:100%;}
+  .polarity .lux-side{border-color:var(--lux); background:#fbf6e6;}
+  .polarity .nox-side{border-color:#7b7366; background:#eee8df;}
+  /* relationship map */
+  .relation-intro{background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:14px 18px; margin:10px 0 16px;}
+  .relation-board{display:grid; grid-template-columns:minmax(280px,1fr) minmax(250px,.82fr) minmax(280px,1fr); gap:14px; align-items:stretch; margin:14px 0 18px;}
+  .rel-zone{background:#fbfaf5; border:1px solid var(--line); border-radius:10px; padding:14px;}
+  .rel-zone h3,.rel-center h3{margin:0 0 10px; font-size:15px; color:#4a3d28;}
+  .rel-list{display:grid; gap:8px;}
+  .rel-card{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:13.5px; line-height:1.6;}
+  .rel-card b{display:block; color:#4a3d28; font-size:14.5px; margin-bottom:2px;}
+  .rel-tag{display:inline-block; border:1px solid var(--line); background:var(--soft); color:var(--muted); border-radius:999px; font-size:11px; padding:0 7px; margin:4px 4px 0 0;}
+  .rel-center{display:flex; flex-direction:column; justify-content:center; gap:10px; background:#f8f0dc; border:1px solid var(--lux); border-radius:10px; padding:16px; text-align:center;}
+  .rel-center .sol{font-size:24px; font-weight:800; color:#4a3d28; line-height:1.25;}
+  .rel-link{border:1px solid var(--line); border-radius:999px; background:#fffaf0; color:#5b4d33; padding:5px 10px; font-size:12px; line-height:1.45;}
+  .core-card,.process-step,.route-card,.attr,.rel-zone,.rel-center,.rel-card,.rel-link,.mirror-card,.nox-card,td,th{min-width:0; overflow-wrap:anywhere;}
+  .mirror-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px; margin:12px 0 18px;}
+  .mirror-card{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:13px 15px; font-size:13.5px; line-height:1.75;}
+  .mirror-card h4{margin:0 0 6px; color:#4a3d28; font-size:14.5px;}
+  .mirror-card .axis{display:inline-block; color:var(--accent); font-size:11.5px; font-weight:700; margin-bottom:2px;}
+  .nox-panel{background:#eee8df; border:1px solid #9b907f; border-radius:10px; padding:16px 18px; margin:12px 0 16px;}
+  .nox-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin:12px 0;}
+  .nox-card{background:#fbfaf5; border:1px solid #c8bda8; border-radius:8px; padding:13px 15px; font-size:13.5px; line-height:1.75;}
+  .nox-card b{display:block; color:var(--nox); font-size:15px; margin-bottom:3px;}
+  /* flow */
+  .flow{margin:16px 0;}
+  .step{background:var(--soft); border:1px solid var(--line); border-radius:8px;
+    padding:11px 16px; margin:0 auto; max-width:600px; text-align:center;}
+  .step b{color:#4a3d28;} .step small{color:var(--muted);}
+  .arrow{text-align:center; color:var(--accent); font-size:17px; margin:4px 0;}
+  .branch{display:flex; gap:14px; margin-top:8px;}
+  .branch>div{flex:1; border-radius:8px; padding:12px 16px; font-size:14px;}
+  .b-decode{background:#f3efe1; border:1px solid var(--accent);}
+  .b-purge{background:#efe9e0; border:1px solid #c9bfa9;}
+  .b-decode h4,.b-purge h4{margin:0 0 6px; font-size:14px;}
+  .b-decode h4{color:var(--lux);} .b-purge h4{color:var(--nox);}
+  /* attribute cards */
+  .attrs{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; margin:12px 0;}
+  .attr{border:1px solid var(--line); border-radius:8px; padding:10px 13px; background:var(--card);}
+  .attr b{display:block; font-size:15px;} .attr small{color:var(--muted);}
+  .cycle-box{background:var(--soft); border:1px solid var(--line); border-radius:8px;
+    padding:14px 18px; margin:12px 0; text-align:center; font-size:15px;}
+  .cycle-box .ring{font-weight:700; color:#4a3d28; letter-spacing:.02em;}
+  /* cards (characters) */
+  .group{margin:14px 0;}
+  .chargrid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin:12px 0;}
+  .ch{border:1px solid var(--line); border-radius:8px; background:var(--card);
+    padding:14px 16px; box-shadow:0 1px 0 var(--shadow);}
+  .ch .name{font-size:17px; font-weight:700; color:#4a3d28;}
+  .ch .role{font-size:12px; color:var(--muted); display:block; margin-bottom:6px;}
+  .ch .at{font-size:12px; font-weight:700; padding:1px 8px; border-radius:9px; background:var(--soft); border:1px solid var(--line);}
+  .ch p{font-size:13.5px; margin:7px 0 0;}
+  .ch .line{font-size:13px; color:#5b4d33; margin-top:6px; font-style:italic;}
+  .factionhead{font-size:15px; font-weight:700; color:#4a3d28; margin:24px 0 2px;
+    padding-left:10px; border-left:4px solid var(--accent);}
+  .ch.with-img{padding:0; overflow:hidden;}
+  .ch.with-img img{display:block; width:100%; aspect-ratio:4/3; object-fit:contain; background:#fffdf8; border-bottom:1px solid var(--line);}
+  .ch.with-img .chbody{padding:13px 15px 15px;}
+  .minirow{display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;}
+  .badge{display:inline-block; border:1px solid var(--line); background:#fffaf0; border-radius:999px;
+    padding:1px 8px; color:var(--muted); font-size:11.5px; line-height:1.7;}
+  .director-note{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin:12px 0 18px;}
+  .director-note>div{background:#fbfaf5; border:1px solid var(--line); border-radius:8px; padding:12px 14px; font-size:13.5px;}
+  .director-note b{display:block; color:#4a3d28; margin-bottom:3px;}
+  /* timeline (plot) */
+  .scene{border:1px solid var(--line); border-radius:9px; background:var(--card);
+    padding:14px 18px; margin:12px 0; position:relative;}
+  .scene .tm{font-size:12px; color:#fff; background:var(--accent); padding:1px 9px;
+    border-radius:9px; font-weight:700;}
+  .scene .ti{font-size:16px; font-weight:700; color:#4a3d28; margin-left:8px;}
+  .scene p{font-size:14px; margin:8px 0 0;}
+  .peak{border-color:var(--lux); box-shadow:0 0 0 2px rgba(176,138,54,.13);}
+  /* mirror diagram */
+  .mirror{display:flex; gap:14px; flex-wrap:wrap; margin:12px 0;}
+  .mirror>div{flex:1; min-width:230px; border-radius:9px; padding:14px 16px; font-size:14px;}
+  .m-water{background:#eef2f3; border:1px solid var(--water);}
+  .m-ice{background:#eceff1; border:1px solid var(--ice);}
+  .m-water h4{color:var(--water); margin:0 0 6px;} .m-ice h4{color:var(--ice); margin:0 0 6px;}
+  footer{max-width:1000px; margin:0 auto; padding:26px 24px 50px; color:var(--muted);
+    font-size:12.5px; text-align:center; border-top:1px solid var(--line);}
+  /* ===== matrix (plot → scene → beat) ===== */
+  .plotband{margin:28px 0 2px; padding:9px 15px; border-radius:8px; font-weight:700;
+    color:#fff; background:var(--accent); font-size:15.5px; letter-spacing:.02em;}
+  .plotband small{font-weight:400; opacity:.92; margin-left:8px; font-size:12.5px;}
+  .scenehead{margin:16px 0 2px; padding:6px 12px; border-left:4px solid var(--lux);
+    background:var(--soft); font-weight:700; color:#4a3d28; font-size:13.5px;}
+  .scenehead small{font-weight:400; color:var(--muted); margin-left:8px; font-size:11.5px;}
+  .mtx-note{font-size:12.5px; color:var(--muted); margin:6px 0 2px;}
+  .mtx-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:8px 0 6px;
+    border:1px solid var(--line); border-radius:8px;}
+  table.mtx{width:100%; min-width:920px; margin:0; font-size:13px; border:0; table-layout:auto;}
+  table.mtx th,table.mtx td{padding:7px 10px; vertical-align:top; border:1px solid var(--line);}
+  table.mtx thead th{position:sticky; top:0; background:var(--th); z-index:1; white-space:nowrap;}
+  table.mtx .sc{font-weight:700; color:#4a3d28; white-space:nowrap;}
+  table.mtx .tm{font-size:11.5px; color:var(--muted); white-space:nowrap;}
+  table.mtx .q{color:#7a6738; font-style:italic;}
+  table.mtx tr.peakrow td{background:#f6efdc;}
+  /* ===== editable matrix controls ===== */
+  .mtx-tools{display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin:10px 0 0;}
+  .mtx-tools button{cursor:pointer; border:1px solid var(--line); background:var(--card);
+    color:var(--ink); padding:4px 11px; border-radius:7px; font-size:12.5px; font-weight:600; transition:.15s;}
+  .mtx-tools button:hover{border-color:var(--accent); color:#4a3d28;}
+  .mtx-tools .sep{flex:1;}
+  .mtx-hint{font-size:11.5px; color:var(--muted);}
+  .mtx-globalbar{display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+    background:var(--soft); border:1px dashed var(--accent); border-radius:8px; padding:10px 14px; margin:14px 0 4px;}
+  .mtx-globalbar b{color:#4a3d28;}
+  .mtx-globalbar button{cursor:pointer; border:1px solid var(--line); background:var(--card);
+    color:var(--ink); padding:4px 11px; border-radius:7px; font-size:12.5px; font-weight:600;}
+  .mtx-globalbar button:hover{border-color:var(--accent);}
+  table.mtx .hlabel{outline:none;}
+  table.mtx td[contenteditable]:focus, table.mtx .hlabel:focus{
+    background:#fffdf4; box-shadow:inset 0 0 0 2px var(--accent); border-radius:3px;}
+  table.mtx th .colctl{display:inline-flex; gap:2px; margin-left:5px;}
+  table.mtx .minib{cursor:pointer; border:1px solid var(--line); background:#fff;
+    border-radius:5px; font-size:11px; line-height:1.4; padding:0 5px; color:var(--muted);}
+  table.mtx .minib:hover{border-color:var(--accent); color:var(--ink);}
+  table.mtx td.rowctl{white-space:nowrap; text-align:center; background:var(--soft);}
+  table.mtx th.rowctl{background:var(--th);}
+  .mtx-modal{position:fixed; inset:0; background:rgba(40,36,28,.5); z-index:100;
+    display:none; align-items:center; justify-content:center; padding:24px;}
+  .mtx-modal.on{display:flex;}
+  .mtx-modal .box{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:18px; max-width:760px; width:100%;}
+  .mtx-modal h4{margin:0 0 8px; color:#4a3d28;}
+  .mtx-modal textarea{width:100%; height:300px; font-family:ui-monospace,Menlo,Consolas,monospace;
+    font-size:12px; border:1px solid var(--line); border-radius:8px; padding:10px; box-sizing:border-box;}
+  .mtx-modal .mrow{display:flex; gap:8px; justify-content:flex-end; margin-top:10px;}
+  .mtx-modal .mrow button{cursor:pointer; border:1px solid var(--line); background:var(--card);
+    color:var(--ink); padding:6px 14px; border-radius:7px; font-size:13px; font-weight:600;}
+  .mtx-modal .mrow button.primary{background:var(--accent); color:#fff; border-color:var(--accent);}
+  @media(max-width:1320px){ .process{grid-template-columns:repeat(4,minmax(0,1fr));} }
+  @media(max-width:980px){
+    .two-col,.attr-split,.relation-board{grid-template-columns:1fr;}
+    .process{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .process-step:not(:last-child)::after{display:none;}
+  }
+  @media(max-width:680px){
+    .wrap{padding:0 14px;} .brand{padding:12px 14px 4px;} nav.tabs{padding:4px 8px 10px;}
+    .branch,.mirror{flex-direction:column;} .brand .tagline{display:none;}
+    .process,.route-grid,.polarity{grid-template-columns:1fr;}
+    .rel-center .sol{font-size:21px;}
+  }
+  @media(max-width:1180px){ .chargrid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+  @media(max-width:760px){ .chargrid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <h1>ポスト・アニマ</h1><span class="v">Ver.3 公式設定資料</span>
+    <span class="tagline">人の負の思いを、消すのではなく "還す" 物語</span>
+  </div>
+  <nav class="tabs">
+    <span class="tab on" data-t="p1"><span class="n">01</span>基本設定</span>
+    <span class="tab" data-t="p2"><span class="n">02</span>登場人物</span>
+    <span class="tab" data-t="p3"><span class="n">03</span>関係性</span>
+    <span class="tab" data-t="p4"><span class="n">04</span>第1話プロット</span>
+    <span class="tab" data-t="p5"><span class="n">05</span>今後の見通し</span>
+  </nav>
+</div>
+
+<div class="wrap">
+
+<!-- ============ PAGE 1 : 基本設定 ============ -->
+<section class="page active" id="p1">
+  <h2>ログライン</h2>
+  <div class="hero">
+    人の負の思いが、記憶ごと剥がれ落ちて怪物になる世界。怪物を斬るのではなく
+    <b>「弱らせ、解読し、鎮め、本人の元へ還す」魂の配達人＝ポスト・アニマ</b>の少年
+    <span class="lux">ソル</span>が、かつて怪物に呑まれ連れ去られた<b>妹ステラ</b>を取り戻すため、そして
+    <b>世界に負を撒き続ける "もう一人の自分" のような敵</b>を追うために、強くなっていく。
+  </div>
+
+  <h2>この作品の核 ── 初見で掴む5つのポイント</h2>
+  <div class="core-grid">
+    <div class="core-card">
+      <span class="eyebrow">01 SOUL MAIL</span>
+      <b>負の感情は、記憶ごと剥がれる</b>
+      <p>抱えきれない思いは透明なシャボン玉のようなソウルメールになり、放置されると怪物＝デッドレターへ変わる。</p>
+    </div>
+    <div class="core-card">
+      <span class="eyebrow">02 RETURN</span>
+      <b>倒すのではなく、本人へ還す</b>
+      <p>消せば記憶は欠けたまま。ポスト・アニマは弱らせ、解読し、鎮め、手紙として本人へ戻す。</p>
+    </div>
+    <div class="core-card">
+      <span class="eyebrow">03 SOL</span>
+      <b>主人公は、デコードできない光</b>
+      <p>ソルは最強格のルクスを継いだのに、基礎のデコードができない。だからこそ初覚醒が第1話のカタルシスになる。</p>
+    </div>
+    <div class="core-card">
+      <span class="eyebrow">04 LUX</span>
+      <b>ルクスは「繋ぎ直す」光</b>
+      <p>攻撃の雷ではなく、魂と住所、魂と人を結び直す力。世界の配達網ポストグリッドとも直結する。</p>
+    </div>
+    <div class="core-card">
+      <span class="eyebrow">05 NOX</span>
+      <b>ノクスは、喪失に呑まれたもう一つの答え</b>
+      <p>敵もまた家族を救いたい者たち。ソルの理想が折れた先にある、暗い鏡として立ちはだかる。</p>
+    </div>
+  </div>
+
+  <h2>作品概要</h2>
+  <table>
+    <tr><th>ジャンル</th><td>王道バトルファンタジー（少年漫画的成長譚）／ダーク&amp;ハートフル</td></tr>
+    <tr><th>トーン</th><td>明るい活劇と重厚な喪失の二層。<b>「消すか、還すか」</b>という赦しのテーマが背骨</td></tr>
+    <tr><th>尺</th><td>第一話 約12〜14分（コンテスト上限15分）。続編を想定</td></tr>
+    <tr><th>貫く軸</th><td><b>人の思いを届ける</b>（不変）。負の思いを鎮めて本人へ還すシステムとして結実</td></tr>
+    <tr><th>中心的な問い</th><td>人の負の思いは <b>"消す" べきか、"還す" べきか</b></td></tr>
+  </table>
+  <div class="note">
+    主人公＝<b>還す</b>（記憶ごと取り戻させ、立ち直る猶予を配達する）／敵＝<b>たった一人を救うために、より多くを犠牲にする</b>。同じ問いに正反対の答え。
+  </div>
+
+  <h2>世界律 ── 魂の郵便システム</h2>
+  <p><b>なぜ斬らず「還す」のか：</b>人が抱えきれない負の感情は、ある時 <b>その感情に紐づいた "記憶" ごと</b> 心から剥がれ落ちる。だから単に消す（パージ）と、その人は記憶を欠いたまま永遠に不完全になる。<b>記憶ごと本人に還す</b> ことに意味がある。ただし負をそのまま返すと再び怪物化するため、<b>鎮めてから返す</b>。</p>
+  <div class="process">
+    <div class="process-step"><span class="num">01</span><b>負の思い</b><small>怒り・哀しみ・絶望など、抱えきれない感情。</small></div>
+    <div class="process-step"><span class="num">02</span><b>ソウルメール</b><small>記憶ごと剥がれ、シャボン玉の中の魔法紙として浮かぶ。</small></div>
+    <div class="process-step"><span class="num">03</span><b>デッドレター</b><small>放置され濁ると、暴走した怪物へ変わる。</small></div>
+    <div class="process-step"><span class="num">04</span><b>弱らせる</b><small>体術とスタンプ魔法で、怪物の力を削る。</small></div>
+    <div class="process-step"><span class="num">05</span><b>デコード</b><small>魔法球体で包み、ソウルメールの姿へ戻す。</small></div>
+    <div class="process-step"><span class="num">06</span><b>シーリング</b><small>封蝋のように押印し、レターへ仕上げる。</small></div>
+    <div class="process-step"><span class="num">07</span><b>リターン</b><small>ポストグリッドが本人へ自動配達する。</small></div>
+  </div>
+  <div class="route-grid">
+    <div class="route-card decode">
+      <h4>成功ルート：デコード → シーリング → リターン</h4>
+      共通詠唱：<b>「コーデックス・アニマ。ヴォクス・シネ・ヴィア、アド・エピストラム・レディ。——デコード」</b><br>
+      <small>意味：魂の記録よ。道なき声よ、手紙へ戻れ。魔法球体が怪物を包み、力が勝てばソウルメールに戻る。</small>
+    </div>
+    <div class="route-card purge">
+      <h4>失敗ルート：パージ</h4>
+      デコード球体が力負けすればパリーンと割れ、怪物が再び浮き出る。弱らせきれない個体は <b>パージ</b> で倒し切るが、これは記憶を永久に消す最終手段。<br>
+      <small>この作品では「救済の失敗」として扱う。</small>
+    </div>
+  </div>
+  <ul>
+    <li>この世界は <b>【基本デコード】</b>。パージは "弱らせきれなかった時の最終手段＝救済の失敗"。</li>
+    <li><b>ロストレター</b>＝中に人間を取り込んだ稀少個体。<b>パージ不可（中の人が死ぬ）</b>＝必ずデコードまで持ち込むしかない。妹ステラ・ボスの弟がこれ。</li>
+    <li><b class="nox">ノクス属性のデッドレター</b>＝源に <b>絶望</b> が根付いた個体。だが絶望は普通 "人ごと呑んで" ロストレター化させるため、<b>人を内包しない純粋なノクスのデッドレターは極めて稀</b>。常5属性では相性で歯が立たず、<b>唯一の天敵＝ルクスでしか還せない</b>（＝第1話クライマックスの巨大個体／<b>ソルにしか救えない必然</b>＋ステラの予兆）。見た目は闇色で儚く可愛らしいが <b>人型は作らない</b>（ロストレターと混同するため）。</li>
+    <li><b>ポストグリッド（住所網）</b>：全ての魂はアドレス（住所）を持ち、レターはグリッドが <b>自動で本人へ配達</b> する。<b>終盤フック：グリッドが破壊されると魂が還れず、世界が混沌に陥る。</b></li>
+  </ul>
+
+  <h2>造語集（カタカナ・郵便メタファーで統一）</h2>
+  <table class="term-table">
+    <tr><th>造語</th><th>意味</th></tr>
+    <tr class="term-group"><th colspan="2">魂の状態</th></tr>
+    <tr><td><b>ソウルメール</b></td><td>記憶ごと剥がれた負の感情。<b>透明なシャボン玉の中に "思いの核" が封じられた姿</b>で浮遊。<b>放置して腐ると「デッドレター」へ</b></td></tr>
+    <tr><td><b>デッドレター</b></td><td>暴走・実体化した負の思い（怪物）。俗称「紙獣」</td></tr>
+    <tr><td><b>ロストレター</b></td><td>人間を内包する稀少個体。パージ不可。<span class="nox">闇（ノクス）属性</span>の極致</td></tr>
+    <tr class="term-group"><th colspan="2">技術・行為</th></tr>
+    <tr><td><b>デコード</b></td><td>弱らせた怪物を、詠唱＋スタンプ印面の<b>魔法球体</b>で包み圧縮し<b>ソウルメールに戻す</b>。共通詠唱は<b>「コーデックス・アニマ。ヴォクス・シネ・ヴィア、アド・エピストラム・レディ。——デコード」</b>。力負けでパリーンと割れる。<b>繊細な魔力操作が要る基礎魔法</b>（普通は3年で習得・ソルは未習得）</td></tr>
+    <tr><td><b>シーリング</b></td><td>ソウルメールに<b>印面を押し当て封蝋で封印→レター（手紙）に仕上げる</b>。決め動作「ポンッ」</td></tr>
+    <tr><td><b>リターン</b></td><td><b>ポストグリッドが</b>手紙を本人へ自動配達＝浄化。<b>PAの技ではない（グリッドの役）</b></td></tr>
+    <tr><td><b>パージ</b></td><td>弱らせきれない時に倒し切る最終手段。永久消去＝救済の失敗</td></tr>
+    <tr class="term-group"><th colspan="2">組織・存在</th></tr>
+    <tr><td><b>ポストグリッド／アドレス</b></td><td>魂の住所を束ね、配達を自動で担う魔法網（終盤に崩壊）</td></tr>
+    <tr><td><b>ポスト・アニマ</b></td><td>ソウルメールを扱う「魂の配達人」。"怪物になりかけて、ならなかった者"</td></tr>
+    <tr><td><b>クーリエ</b></td><td>ポスト・アニマの所属組織（複数存在。流儀＝デコード派／パージ派／収集派）</td></tr>
+    <tr><td><span class="nox"><b>ノクス</b></span></td><td>敵対勢力＝闇属性の者たちの集団。セレネのクーリエが「希望で束ねる家」なら、ノクスは「喪失で束ねる共同体」</td></tr>
+    <tr class="term-group"><th colspan="2">属性・相棒・道具</th></tr>
+    <tr><td><b>シグナ</b></td><td>強い体験を乗り越えた者の <b>瞳に灯る属性の色＝印</b>（ラテン語 signum）。これを持つ者＝予備軍も「シグナ」</td></tr>
+    <tr><td><b>ファミリア</b></td><td>卵から孵る相棒。所有者の属性を宿す。<b>これがいて初めてデコード／パージが行使できる</b></td></tr>
+    <tr><td><b>スタンプ</b></td><td>主人公の魔道具＝大型の封蝋スタンプ（<b>杖を兼ねる</b>）。<b>詠唱で印面から魔法を放ち</b>（弱らせ・デコード球体）、押印で<b>シーリング</b>。印面はシグナの色に発光。ハンマー（殴打具）ではなく押印具</td></tr>
+    <tr><td><b>エアスタンプ</b></td><td><b>切手（＝スタンプ）をマント／ボード状に織った飛行具</b>。サーフボード状に乗り空を滑る見習いの足</td></tr>
+    <tr class="term-group"><th colspan="2">場所・地名</th></tr>
+    <tr><td><b>ポストロウ</b></td><td>セレネのクーリエ拠点から街へ出てすぐの<b>商店街（食と日用品の市場通り）</b>。<b>"ポスト"（郵便）家族の地名</b>（ポスト・アニマ／ポストグリッドと同系）で、<b>店が一列に連なる通り＝row</b>。ソウルソーダなどの屋台が並ぶ温かな下町で、第1話ではナイアが落ち込むソルを連れ出す場（S3末→S4の主舞台）</td></tr>
+  </table>
+
+  <h2>属性システム ── 原体験が魂に刻む色</h2>
+  <p>属性は生まれつきではなく、<b>強い（基本＝負の）体験で、心に最も強く根付いた感情</b> で決まる。<b>その感情を抱えたまま呑まれず "乗り越えられた" 者にだけ属性が宿り</b>、<b>瞳の色＝シグナ</b> として現れる（戦闘時に強く灯る＝一目で属性が分かるキャラデザの核）。<b>どの感情を、どう乗り越えたか</b> で色が決まる——怒りを乗り越えれば <b style="color:var(--fire)">フレア</b>、悲しみを乗り越えれば <b style="color:var(--water)">アクア</b>、喪失を凍てつかせて閉ざせば <b style="color:var(--ice)">フロスト</b>……。</p>
+  <div class="note">
+    <b>乗り越えるか、呑まれるか：</b>同じ体験でも、<b>呑まれず乗り越えれば「属性者（ポスト・アニマ予備軍）」</b> に、<b>呑まれれば、その負が記憶ごと剥がれて「怪物（デッドレター）の源」</b> になる（人ごと呑まれれば <b>ロストレター</b>＝ステラ）。同じ喪失でも、希望を灯せば <span class="lux">ルクス</span> の器、絶望に呑まれれば <span class="nox">ノクス</span>／ロストレター——<b>同じ傷が、抱え方で別の色（生き方）になる</b>。
+  </div>
+  <div class="attr-split">
+    <div>
+      <h3>常属性 ── 感情の環</h3>
+      <div class="attrs">
+        <div class="attr"><b style="color:var(--fire)">フレア（炎）</b><small>怒り・激情</small></div>
+        <div class="attr"><b style="color:var(--water)">アクア（水）</b><small>哀しみ・涙</small></div>
+        <div class="attr"><b style="color:var(--ice)">フロスト（氷）</b><small>喪失・凍てつき</small></div>
+        <div class="attr"><b style="color:var(--earth)">テラ（地）</b><small>後悔・頑迷</small></div>
+        <div class="attr"><b style="color:#5a8a5f">フローラ（草）</b><small>妬み・執着</small></div>
+      </div>
+    </div>
+    <div>
+      <h3>極属性 ── 繋ぐ光と断つ闇</h3>
+      <div class="polarity">
+        <div class="core-card lux-side">
+          <span class="eyebrow">LUX</span>
+          <b class="lux">ルクス ★主人公</b>
+          <p>希望・憧れ。魂と住所を繋ぎ直し、還る道を照らす光。稀少すぎて術理が失われている。</p>
+        </div>
+        <div class="core-card nox-side">
+          <span class="eyebrow">NOX</span>
+          <b class="nox">ノクス ★敵</b>
+          <p>絶望・憎悪。繋がりを断ち、負を呑ませる闇。常5属性すべてに有利で、唯一の天敵がルクス。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3>相性 ── 常属性5つは「一本の環」で循環</h3>
+  <div class="cycle-box">
+    <div class="ring">水アクア → 火フレア → 草フローラ → 地テラ → 氷フロスト →（水へ戻る）</div>
+    <small>水は火を消し／火は草を焼き／草は地を割り覆い／地は氷を砕き割り／氷は水を凍らせ封じる。感情で読むと「悲しみ→怒り→妬み→後悔→喪失→」と一巡。※風ゲイルは草フローラに統合（2026-06-02）。</small>
+  </div>
+  <div class="note">
+    <b>極属性は別格：</b><span class="nox">ノクス（闇）</span> は常5すべてに有利・唯一の弱点＝ルクス＝最凶。<span class="lux">ルクス（光・雷を内包）</span> は弱点なし・闇の唯一の天敵＝本来最強格。<b>だが稀少すぎて術理が未解明</b>（教本も師範も無い）＝誰も扱えない。これが主人公ソルが <b>落ちこぼれ扱いされる理由</b> であり、<b>世界の鍵になる必然</b>。
+  </div>
+  <div class="note" style="border-style:solid; border-color:var(--lux);">
+    <b class="lux">ルクスの真髄＝「繋ぐ・照らす・還す」光（最重要）：</b>攻撃（雷）は一面にすぎない。本質は <b>魂と魂・魂と住所を繋ぎ直す光</b>。古のルクスの担い手はこの力で <b>ポストグリッド（光の意図の糸）</b> を築き、魂を本人へ "還す" 網を敷いた＝平和の礎。リターン自体はそのグリッドが担うが、<b>怪物をソウルメールに戻すデコードもまた、繊細な光で対象を繋ぎ直す業</b>。<b>ソルはこのデコードがまだできない＝光の本質（繋ぎ直す繊細な制御）を掴めていない</b>。<b>初めてデコードを完遂する＝覚醒</b> は、古の光に一歩触れること＝彼が世界の鍵である必然。
+  </div>
+  <div class="note" style="border-style:solid; border-color:var(--lux);">
+    <b class="lux">ルクス＝「伝承の系譜」（他の全属性と非対称・最重要）：</b>ルクスだけは <b>原体験では宿らない</b>。<b>現在の担い手が、次の "器" へ "伝承" した時にだけ受け継がれる</b> 極稀少の力（個性継承型）。<b>器の条件</b>＝絶望の淵で呑まれず希望を灯せた魂。古の担い手（＝ポストグリッドの創設者）から細々と継がれてきたが、担い手が激減し伝承が途絶えかけた結果、<b>使いこなしの術理（特にデコード）が型として残らず "未解明" になった</b>＝教本も師範も無い理由。<br>
+    <b>伝承の代償：</b>伝承した担い手は <b>力が衰えていく</b>（しばらく戦えるが、かつての力は出せなくなる）。<b>セレネ＝現担い手で、あの夜ソルへルクスを伝承</b>（白い空間の誓いの瞬間＝シグナ初発現）。以降ゆるやかに衰える＝長編の火種。継いだソルも真髄を掴めず落ちこぼれる——それを自力で掴む物語。
+  </div>
+
+  <h2>世界のなりたち ──「繋がり」の旧世界と「分断」のはじまり</h2>
+  <div class="flow">
+    <div class="step"><b>旧世界（平和な以前）</b><br><small>古のルクスの担い手がポストグリッド＝光の意図の糸で世界を"繋ぎ"、剥がれた魂はすぐ本人へ還っていた。デッドレターは稀</small></div>
+    <div class="arrow">↓ <span class="nox">ノクス（闇＝断つ・呑む・絶望）</span>が台頭し、人々の負を煽る</div>
+    <div class="step"><b>デッドレターの蔓延</b><br><small>世界が"繋がり"を失い始める。ポスト・アニマは強くなる必要に迫られる</small></div>
+    <div class="arrow">↓ 属性ごとに切磋琢磨 → 優劣・流儀をめぐる派閥争い</div>
+    <div class="step"><b>クーリエ（属性門閥）の誕生＝今</b><br><small>同属性で固まる組織が各地に。世界は属性で分断。ルクスの担い手は失われ術理も継承されず、"稀少で未解明の異端"に</small></div>
+  </div>
+  <div class="note">
+    つまり <b><span class="nox">ノクス＝分断</span>／<span class="lux">ルクス＝繋がり</span></b>。世界は「繋ぐ光」を失い「断つ闇」に脅かされる分断の時代——そこに <b>失われた光の系譜の再来＝ソル</b> が現れた。彼が世界を "繋ぎ直す" 鍵になりうる。オルガは、世界が繋がっていた頃の残光を知る数少ない一人。
+  </div>
+
+  <h2>ポスト・アニマとクーリエ</h2>
+  <ul>
+    <li><b>ポスト・アニマ</b>＝ソウルメールを扱う「魂の配達人」。"怪物になりかけて、ならなかった者"。シグナ（瞳の属性色）が灯った者をクーリエがスカウト→ファミリアの卵を託す→手で触れた瞬間に孵化。</li>
+    <li><b>クーリエ＝元来"同属性で固まる門閥"</b>。当主の属性に準ずる者だけを集め一属性に特化する。<b>ゆえに相性の穴を持ち、全属性に有利なノクスには構造的に勝てない</b>（弱点ルクスを持つ者がほぼいないため）。</li>
+  </ul>
+  <div class="note" style="border-style:solid; border-color:var(--accent);">
+    <b>セレネのクーリエ＝全属性が揃う「はぐれ者の家」（1話の主舞台）：</b>どの門閥にも "配達" されなかった、宛先のないはぐれ者たち（孤児・他で腫れ物／落ちこぼれ扱いされた者）が流れ着く <b>「配達不能郵便局」のような家</b>。<br>
+    → <b>実は強い（逆転）</b>：全属性が揃えば相性の環に穴がなく補い合える。何より <b>稀少なルクス（ソル）を育てられるのはここだけ</b>＝<b>ノクスに対抗しうる唯一の器が、世間に「掃き溜め」と笑われる寄せ集めの中にある</b>。セレネの "甘さ" は世界の最後の希望＝<b>分断した世界を "繋ぎ直す" 試み</b>。<br>
+    → <b>セレネの動機（二層）</b>：表は慈悲。裏に「属性で分かれた世界ではノクスに勝てない」確信（同じルクスとして、彼女はルクスが世界を繋いだ史実を知る）。だから全属性の家族と、光の再来ソルを密かに育てている。
+  </div>
+</section>
+
+<!-- ============ PAGE 2 : 登場人物 ============ -->
+<section class="page" id="p2">
+  <h2>登場人物</h2>
+  <p class="lead">現在キャストは「主人公のクーリエ」に集中。属性＝その人の原体験。瞳の色（シグナ）とファミリアで、役割と感情の色が一目で分かる。</p>
+
+  <div class="factionhead">① 主人公サイド ── セレネの「はぐれ者の家」（全属性が集う信念派クーリエ）</div>
+  <div class="chargrid">
+    <div class="ch with-img">
+      <img src="images/ソル＆ルゥ.png" alt="ソルとルゥ">
+      <div class="chbody">
+        <span class="name lux">ソル</span><span class="role">主人公・兄／16歳</span>
+        <span class="at lux">ルクス（光・雷／伝承）</span>
+        <p>喪失の中でも呑まれず希望を灯した＝<b>ルクスの "器"</b>。師セレネから光を継いだが、基礎中の基礎＝<b>デコードが歴4年でも未習得</b>。体術は本物で、形見は妹の星のチャーム。</p>
+        <div class="minirow"><span class="badge">武器：封蝋スタンプ</span><span class="badge">移動：折りたたみ式エアスタンプ</span><span class="badge">相棒：ルゥ</span><span class="badge">ルクス属性</span></div>
+        <p class="line">「まだ、消さない。——返しに来たんだ。」</p>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/セレネ＆ルクシア.png" alt="セレネとルクシア">
+      <div class="chbody">
+        <span class="name lux">セレネ</span><span class="role">師＝勇者・クーリエ長／女性</span>
+        <span class="at lux">ルクス（光・現担い手）</span>
+        <p>失われゆくルクスの現担い手。悲劇の夜ソルだけを救い、呑まれなかった彼へルクスを伝承した恩人。伝承の代償で衰えゆく身を抱える。</p>
+        <div class="minirow"><span class="badge">相棒：ルクシア</span><span class="badge">ルクス属性</span><span class="badge">現在軸は終盤まで温存</span></div>
+        <p class="line">「光ってのはな。——闇を消す力じゃない。還る道を、照らす力だ。」</p>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/ナイア＆ミオ.png" alt="ナイアとミオ">
+      <div class="chbody">
+        <span class="name" style="color:var(--water)">ナイア</span><span class="role">ヒロイン／16歳</span>
+        <span class="at" style="color:var(--water)">アクア（水）</span>
+        <p>家族をパージで喪い、凍っていた心がソルに溶かされ "還す側" へ再生。だから誰よりソルの「還す」を信じる。レヴィの鏡。</p>
+        <div class="minirow"><span class="badge">相棒：ミオ</span><span class="badge">アクア属性</span><span class="badge">1話の見抜く者</span></div>
+        <p class="line">「ソルのそれ、"甘い" んじゃない。——一番、強いんだよ。」</p>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/アッシュ＆エンバー.png" alt="アッシュとエンバー">
+      <div class="chbody">
+        <span class="name" style="color:var(--fire)">アッシュ</span><span class="role">侮るライバル／対照・16歳</span>
+        <span class="at" style="color:var(--fire)">フレア（炎・怒り）</span>
+        <p>ソルと同じ "還す" 派の腕利き。だからこそ、デコードできないまま現場に出るソルの実力不足が許せない。1話冒頭で圧倒的な差を見せる壁。</p>
+        <div class="minirow"><span class="badge">相棒：エンバー</span><span class="badge">フレア属性</span><span class="badge">ルゥと犬猿</span></div>
+        <p class="line">「また同じ過ちを犯すつもりか……デコードできない落ちこぼれが。」</p>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/レヴィ＆クリオ.png" alt="レヴィとクリオ">
+      <div class="chbody">
+        <span class="name" style="color:var(--ice)">レヴィ</span><span class="role">尊敬される先輩エース・19歳（1話は佇まいのみ）</span>
+        <span class="at" style="color:var(--ice)">フロスト（氷・喪失）</span>
+        <p>自分の属性クーリエが壊滅し、唯一生き残った者。情を凍らせた冷徹な先輩で、パージ上等の価値観を背負う。ナイアの鏡。</p>
+        <div class="minirow"><span class="badge">相棒：クリオ</span><span class="badge">フロスト属性</span><span class="badge">1話は佇まいのみ</span></div>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/オルガ＆ジオ.png" alt="オルガとジオ">
+      <div class="chbody">
+        <span class="name" style="color:var(--earth)">オルガ</span><span class="role">クーリエの長老・父的存在</span>
+        <span class="at" style="color:var(--earth)">テラ（地）</span>
+        <p>最古参。この一家の圧倒的な父のような精神的支柱。旧き世界とポストグリッドの秘密を知る語り部。</p>
+        <div class="minirow"><span class="badge">相棒：ジオ</span><span class="badge">テラ属性</span></div>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/ヒナ.png" alt="ヒナ">
+      <div class="chbody">
+        <span class="name">ヒナ</span><span class="role">クーリエの見習い／10歳</span>
+        <span class="at">シグナ未発現</span>
+        <p>エアスタンプ整備・雑用の少女。まだ正式なポスト・アニマではないが、ソルを心から慕う。世界律の自然な聞き手。</p>
+        <div class="minirow"><span class="badge">10歳</span><span class="badge">黄緑ショートボブ</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="factionhead">② 家族 ── 悲劇の起点（回想）／奪還の目標</div>
+  <div class="chargrid">
+    <div class="ch with-img">
+      <img src="images/ソル_幼少期.png" alt="幼少期のソル">
+      <div class="chbody">
+        <span class="name lux">ソル（幼少期）</span><span class="role">回想／8歳</span>
+        <span class="at lux">ルクスの器</span>
+        <p>母アンナと妹ステラと暮らしていた頃のソル。まだクーリエ制服もルゥもなく、妹が作った星のチャームだけが現在のソルへ繋がる。</p>
+        <div class="minirow"><span class="badge">普段着</span><span class="badge">星のチャーム</span><span class="badge">悲劇前</span></div>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/アンナ.png" alt="アンナ">
+      <div class="chbody">
+        <span class="name">アンナ</span><span class="role">母</span>
+        <span class="at">一般人</span>
+        <p>病弱な母。深い愛を残して逝く。その死がステラのロストレター化とソルの伝承の起点になる。</p>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/ステラ.png" alt="ステラ">
+      <div class="chbody">
+        <span class="name nox">ステラ</span><span class="role">妹＝彼方の目標</span>
+        <span class="at nox">ノクス（ロストレター）</span>
+        <p>無邪気で光のような子だったが、母の死の絶望に呑まれロストレター化。「塔の頂から二人で手紙を出す」約束がソルの原点。</p>
+        <div class="minirow"><span class="badge">回想：5歳</span><span class="badge">現在：奪還目標</span></div>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/ステラ_ロストレター.png" alt="ステラのロストレター姿">
+      <div class="chbody">
+        <span class="name nox">ステラ（ロストレター）</span><span class="role">連れ去られた妹の現在像</span>
+        <span class="at nox">ノクス</span>
+        <p>母の死をきっかけに絶望へ呑まれた姿。ソルにとって、倒す相手ではなく必ず還すべき家族。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="factionhead">③ 第1話ゲスト／デッドレター（源の人と、還すべき怪物）</div>
+  <div class="chargrid">
+    <div class="ch with-img">
+      <img src="images/story1_daughter.png" alt="S1コールドオープンの娘">
+      <div class="chbody">
+        <span class="name">娘</span><span class="role">S1コールドオープン／1体目の源</span>
+        <span class="at">一般市民</span>
+        <p>母子家庭で母と二人暮らしの10歳ほどの女の子。誕生日の夜に一人で冷めた夕食を食べる寂しさが、ソウルメールとなって浮かび上がる。</p>
+        <div class="minirow"><span class="badge">黒髪</span><span class="badge">シグナ未発現</span><span class="badge">ステラと差別化</span></div>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/dead_letter_1.png" alt="雨童">
+      <div class="chbody">
+        <span class="name" style="color:var(--water)">雨童（あまわらし）</span><span class="role">S1冒頭の中型デッドレター</span>
+        <span class="at" style="color:var(--water)">アクア（水）</span>
+        <p>娘の「誕生日に一人でご飯を食べる寂しさ」から生まれた水の亡霊型デッドレター。胸の奥に灯らない誕生日ろうそくを宿す。</p>
+        <div class="minirow"><span class="badge">水の亡霊</span><span class="badge">デコード・ボイス初使用</span><span class="badge">アッシュが還す</span></div>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/dead_letter_2.png" alt="闇の亡霊">
+      <div class="chbody">
+        <span class="name nox">闇の亡霊</span><span class="role">S6クライマックスのデッドレター</span>
+        <span class="at nox">ノクス（闇）</span>
+        <p>アクアの雨童と対になる、黒紫の闇でできた亡霊型デッドレター。ノクスの気配がステラの記憶と響き、ソルの回想を発火させる。</p>
+        <div class="minirow"><span class="badge">人型ではない</span><span class="badge">手紙モチーフなし</span><span class="badge">ソルが初デコード</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="factionhead">④ 敵対勢力ノクス（思想と相関は「03 関係性」で詳述）</div>
+  <div class="chargrid">
+    <div class="ch with-img">
+      <img src="images/ヴェスパー.png" alt="ヴェイル">
+      <div class="chbody">
+        <span class="name nox">ヴェイル</span><span class="role">ボス＝主人公の鏡像／セレネの元弟子（1話は声・気配のみ）</span>
+        <span class="at nox">ノクス（闇）</span>
+        <p>ソルと同じポスト・アニマ。弟テオをロストレター化で喪い、デコードできずにいる。第一話冒頭のモノローグはこのヴェイルの声。</p>
+        <div class="minirow"><span class="badge">名前入替後：ボス</span><span class="badge">弟：テオ</span></div>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/ヴェイル.png" alt="ヴェスパー">
+      <div class="chbody">
+        <span class="name nox">ヴェスパー</span><span class="role">ノクス幹部・成獣</span>
+        <span class="at nox">ノクス（闇）</span>
+        <p>人語を操る擬人化デッドレター。母の死の夜に妹ステラを連れ去った実行者＝ソルの宿敵。ヴェイルの右腕。</p>
+        <div class="minirow"><span class="badge">名前入替後：成獣</span><span class="badge">回想S6に登場</span></div>
+      </div>
+    </div>
+    <div class="ch with-img">
+      <img src="images/テオ.png" alt="テオ">
+      <div class="chbody">
+        <span class="name nox">テオ</span><span class="role">ボスの弟</span>
+        <span class="at nox">ロストレター</span>
+        <p>ヴェイルが救えぬ弟。ステラの鏡。敵の動機を「ただの悪」ではなく、家族への愛に結びつける核。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 3 : 関係性 ============ -->
+<section class="page" id="p3">
+  <h2>関係性 ── 物語全体の相関図</h2>
+  <p class="lead">このページは、仲間・家族・敵対者・過去の傷まで含めた <b>物語全体の関係図</b>。まず誰と誰がつながっているかを相関図で見せ、その下で「ソルの何を映す人物なのか」を読み解く。</p>
+
+  <div class="relation-intro">
+    <b>読み方：</b>ソルを中心に、左側は彼を支える家族・仲間・壁、右側は彼と対になる敵対者たち。ノクスも単独の敵設定ではなく、ソルやステラ、セレネの過去と絡み合う関係線の一部として置く。
+  </div>
+
+  <h3>相関図 ── ソルを中心に、仲間・家族・敵対者が交差する</h3>
+  <div class="relation-board">
+    <div class="rel-zone">
+      <h3>セレネのクーリエ</h3>
+      <div class="rel-list">
+        <div class="rel-card"><b>セレネ</b>救い親・師。ソルへルクスを伝承した現担い手。<br><span class="rel-tag">師弟</span><span class="rel-tag">光の伝承</span></div>
+        <div class="rel-card"><b>ステラ</b>ソルの妹。連れ去られた目標であり、絶対に還すべき家族。<br><span class="rel-tag">妹</span><span class="rel-tag">約束</span><span class="rel-tag">光→闇</span></div>
+        <div class="rel-card"><b>ナイア</b>ソルの「還す」に救われた側。彼の甘さを強さとして見抜く。<br><span class="rel-tag">救われた側</span><span class="rel-tag">理解者</span></div>
+        <div class="rel-card"><b>アッシュ</b>同じ現場で働く実力者。ソルの未熟な理想を侮蔑する壁。<br><span class="rel-tag">侮蔑</span><span class="rel-tag">同業の壁</span></div>
+        <div class="rel-card"><b>ヒナ／オルガ</b>拠点の温度。ヒナは慕う後輩、オルガはグリッドの秘密を知る父的長老。<br><span class="rel-tag">居場所</span><span class="rel-tag">未来の聞き手</span></div>
+      </div>
+    </div>
+
+    <div class="rel-center">
+      <h3>中心人物</h3>
+      <div class="sol">ソル</div>
+      <p>扱えぬルクスを継いだ主人公。妹を取り戻すため、怪物を消さずに還す道を選ぶ。</p>
+      <div class="rel-link">セレネ → ソル：師弟／光の伝承</div>
+      <div class="rel-link">ソル → ステラ：妹／塔から手紙を送る約束</div>
+      <div class="rel-link">アッシュ → ソル：侮蔑／また同じ過ちを恐れる</div>
+      <div class="rel-link">ナイア → ソル：救われた側／理想を信じる</div>
+      <div class="rel-link">ソル ⇔ ヴェイル：鏡像／家族を救いたい者同士</div>
+      <div class="rel-link">ヴェスパー → ステラ：連れ去り／トラウマの顔</div>
+    </div>
+
+    <div class="rel-zone">
+      <h3>敵対勢力ノクス</h3>
+      <div class="rel-list">
+        <div class="rel-card"><b>ノクス</b>喪失を抱えた者たちの共同体。負を撒いてでも大切な人を救おうとする。<br><span class="rel-tag">暗黒の鏡</span><span class="rel-tag">喪失で束ねる</span></div>
+        <div class="rel-card"><b>ヴェイル</b>ボス。弟テオを救えず、ソルと同じ問いに反対の答えを出した元ポスト・アニマ。<br><span class="rel-tag">鏡像</span><span class="rel-tag">元弟子</span></div>
+        <div class="rel-card"><b>ヴェスパー</b>人語を操る成獣。ステラを連れ去った実行者で、ヴェイルの右腕。<br><span class="rel-tag">右腕</span><span class="rel-tag">連れ去り</span></div>
+        <div class="rel-card"><b>テオ</b>ヴェイルが救えない弟。ステラと対になるロストレター。<br><span class="rel-tag">弟</span><span class="rel-tag">ロストレター</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>鏡像マップ ── 同じ傷が、別の答えになる</h3>
+  <div class="mirror-grid">
+    <div class="mirror-card">
+      <span class="axis">還す vs 犠牲にする</span>
+      <h4>ソル ⇔ ヴェイル</h4>
+      家族を救いたいという出発点は同じ。ソルは一つずつ還そうとし、ヴェイルは一人を救うために世界へ負を撒く。
+    </div>
+    <div class="mirror-card">
+      <span class="axis">光と闇</span>
+      <h4>ソル ⇔ ステラ</h4>
+      同じ喪失から、兄は希望を灯してルクスへ、妹は絶望に呑まれてノクスへ。奪還の目標そのもの。
+    </div>
+    <div class="mirror-card">
+      <span class="axis">流れる水と止まった氷</span>
+      <h4>ナイア ⇔ レヴィ</h4>
+      同じ喪失を、ナイアはソルに溶かされ再生し、レヴィは傷つかぬよう凍らせたままパージ上等へ傾く。
+    </div>
+    <div class="mirror-card">
+      <span class="axis">希望の家と喪失の共同体</span>
+      <h4>セレネのクーリエ ⇔ ノクス</h4>
+      はぐれ者を希望で束ねる家と、救えなかった者を喪失で束ねる集団。どちらも居場所だが、向かう先が違う。
+    </div>
+    <div class="mirror-card">
+      <span class="axis">甘さの価値</span>
+      <h4>ソル ⇔ アッシュ</h4>
+      ソルの「還す」は理想であり未熟さでもある。アッシュはその甘さが犠牲を生むと知っているから、侮蔑が痛い。
+    </div>
+  </div>
+
+  <h3>過去任務 ──「ソルの甘さは犠牲か、救いか」</h3>
+  <p>ある任務で、ソルが <b>皆が見捨てた手強いソウルを、不器用でも諦めず "還そう" とした</b> 一件。<b>同じ出来事</b> が二人を正反対に分けた。</p>
+  <div class="mirror">
+    <div class="m-ice" style="background:#f3ece4; border-color:var(--fire);">
+      <h4 style="color:var(--fire);">アッシュ → 怒り・侮蔑</h4>
+      ソルの粘りで対応が遅れ <b>犠牲（被害）が出た</b> ことに直面 →「甘さが犠牲を生む」と確信。以後ソルを蔑む。
+    </div>
+    <div class="m-water">
+      <h4>ナイア → 再生・敬意</h4>
+      家族を <b>パージで喪い</b> 凍っていた心が、ソルが最後にその魂を <b>還してみせた</b> のを見て「まだ救えるんだ」と溶ける。
+    </div>
+  </div>
+
+  <h3>敵対勢力ノクス ── セレネのクーリエの暗黒の鏡</h3>
+  <div class="nox-panel">
+    ノクスは <b>ヴェイル個人ではなく、その思想に賛同した者たちの共同体</b>。各々が "救えなかった大切な人" を抱え、ヴェイルの「負を撒いてでも稀有なロストレターを集め、愛する者を取り戻す／"還す" は強者の甘え」という道に共鳴している。<br>
+    つまり敵側もまた、セレネのクーリエと同じく <b>居場所を失った者たちの受け皿</b>。違いは、希望で束ねるか、喪失で束ねるか。
+  </div>
+  <div class="nox-grid">
+    <div class="nox-card">
+      <b>ボス・ヴェイル</b>
+      主人公の完全な鏡像。同じポスト・アニマで、弟テオをロストレター化で喪い、デコードできずにいる。セレネの元弟子。第一話では冒頭の声のみで、姿は見せない。
+    </div>
+    <div class="nox-card">
+      <b>幹部・ヴェスパー</b>
+      巨大な絶望から生まれた成獣。人語を操り、ヴェイルに付き従う。第一話ではステラを連れ去る実行者として、ソルのトラウマの顔になる。
+    </div>
+    <div class="nox-card">
+      <b>テオ</b>
+      ヴェイルが救えぬ弟。ステラの鏡。敵の動機を「ただの悪」ではなく、家族への愛に結びつける核。
+    </div>
+  </div>
+
+  <h3>その他の核となる関係</h3>
+  <table>
+    <tr><th>関係</th><th>中身</th></tr>
+    <tr><td><b>ソル ⇔ セレネ</b><br><span class="pill">光の伝承</span></td><td>救い親であり師であり、<b>ルクスを伝承した先代の担い手</b>。伝承の代償で衰えゆく身と、ステラを救えなかった悔いを抱える。</td></tr>
+    <tr><td><b>ソル ⇔ ステラ</b><br><span class="pill">同じ傷・違う色</span></td><td>同じ喪失から、妹は闇（ノクス）へ、兄は光（ルクス）へ。「塔の頂から二人で手紙を」の約束＝奪還の原点。</td></tr>
+    <tr><td><b>ソル ⇔ ヴェイル</b><br><span class="pill">鏡像</span></td><td>同じポスト・アニマで、ともに家族のロストレター化を救えずにいる。<b>ソルが失敗し続ければヴェイルになる</b> 未来像。</td></tr>
+    <tr><td><b>ソル ⇔ ヒナ</b><br><span class="pill">慕われる</span></td><td>シグナ未発現の見習いが、落ちこぼれと侮られるソルを心から慕う＝ソルの "心" の価値を映す鏡。</td></tr>
+    <tr><td><b>ステラ ⇔ テオ</b><br><span class="pill">救えぬ家族</span></td><td>ソル側とヴェイル側、それぞれの失われた家族。二人がいることで、敵味方の動機が同じ場所から生まれていると分かる。</td></tr>
+  </table>
+  <div class="note"><b>ウィストリアに学んだ関係力学：</b>①目標を "人" に宿す（妹ステラ＝彼方の目標）②主人公の生き様が他者を変える（ナイアの再生）③「見抜く者（セレネ・ナイア）」vs「侮る世界（アッシュ・実利派）」④報われぬ想いを品よく⑤ハンデが唯一の強み（扱えぬ光＋本物の体術）。</div>
+  <div class="quote">（後の回）「君も、いずれ分かる。——"還す" なんて、強者の甘えだ。」── ヴェイル</div>
+</section>
+
+<!-- ============ PAGE 4 : 第1話プロット ============ -->
+<section class="page" id="p4">
+  <h2>第1話プロット ──「夜を照らす」（第二稿・9場面/4プロット）</h2>
+  <p class="lead">尺の目安 約12〜15分。<b>カタルシスの核＝"還す" 成功で勝つ</b>：皆が「パージ（消す）しかない」と諦めた <b class="nox">ノクス属性</b> の強敵を、唯一の天敵＝ルクスのソルだけが "消さずに還して" みせる。ソルの "できないこと"＝<b>デコード</b> を冒頭でできず侮られ、終盤で初めて完遂＝完璧な裏返し。</p>
+
+  <div class="note">
+    <b>単位の階層（イグレシアス）：</b>第一話 ＝ <b>4つのプロット</b> ／ プロット ＝ 複数の <b>場面（S1…S9）</b> ／ 場面 ＝ 複数の <b>ビート（やり取り）</b>。下の概観表のあと、<b>各場面をビート（やり取り）へ割ったフル列マトリックス</b>（#／尺／場所／ソル／ナイア／アッシュ・他／カメラ・絵・演出／感情・問い／セリフ・音）を場面ごとに並べた＝実質の最終脚本。<b>各表は編集可能</b>（セル編集・行/列の追加・並べ替え・↶取り消し）。<b>セリフは全て仮</b>（マトリックス上で直せる）。
+  </div>
+
+  <table>
+    <tr><th>プロット</th><th>含む場面</th><th>劇的役割／このまとまりが投げる問い</th></tr>
+    <tr><td><b>Ⅰ｜侮蔑 ── 還せない落ちこぼれ</b></td><td>S1〜S3</td><td>つかみ・世界律・対立軸／「光を継いだ落ちこぼれは、何かを還せるのか？」</td></tr>
+    <tr><td><b>Ⅱ｜それでも、必ず還す</b></td><td>S4〜S5</td><td>共感の深化と前向きな誓い・平和からの急転／「ソルの "還す" は本物か？」</td></tr>
+    <tr><td><b>Ⅲ｜闇との再会 ── 過去と覚醒</b></td><td>S6〜S8</td><td>最大の山（過去・伝承）＋カタルシス（還す成功）／「消さずに還せるのか？」</td></tr>
+    <tr><td><b>Ⅳ｜差し込んだ光（コーダ）</b></td><td>S9</td><td>物語線を閉じ世界規模の問いを開く／「この光は世界を繋ぎ直せるか？」</td></tr>
+  </table>
+
+  <h3>S1映像化メモ（今回反映）</h3>
+  <div class="director-note">
+    <div><b>冒頭モノローグ</b>声はボスのヴェイル。説明ではなく、不公平さと手紙化の仕組みを詩として置く。黒味からすぐ母子家庭の子へ切り替え、「これは誰の声？」を残す。</div>
+    <div><b>カット設計</b>Seedanceは15秒以内で分割生成する前提。各行は「絵・動き・音」を必ず持たせ、セリフなしの行も無音にせず環境音や効果音を指定する。</div>
+    <div><b>詠唱方針</b>魔法語はラテン語風で統一する。現実の古典ラテン語に厳密に寄せすぎず、耳に残るカタカナ呪文として設計。共通デコード詠唱：<b>「コーデックス・アニマ。ヴォクス・シネ・ヴィア、アド・エピストラム・レディ。——デコード」</b></div>
+    <div><b>短い攻撃魔法</b>ソルの光属性は未熟なので、攻撃は短く荒い。採用案：<b>「ルクス・レイ！」</b>。Lux（光）を軸にしておくため、短文魔法もデコード詠唱と同じ魔法体系に見える。</div>
+  </div>
+
+  <table>
+    <tr><th>生成ブロック</th><th>使用ビート</th><th>生成尺</th><th>動画としての狙い</th></tr>
+    <tr><td><b>S1-A｜声・発生源とソウルメールの変質</b></td><td>S1-1〜S1-12</td><td>—</td><td>黒バックの語り、娘の発生源（手元・カレンダー・窓・寂しい顔・横顔・手元POV）、空へ昇った想いの手紙が濁り→歪み→割れて発光＝デッドレター化。説明を映像で削り、一人の子のドラマと光球の変質で世界律を見せる。</td></tr>
+    <tr><td><b>S1-B｜ソル登場と急行</b></td><td>S1-13〜S1-17</td><td>—</td><td>帽子、カバン、星のチャーム、眠るルゥ、遠い空の異変、エアスタンプ展開、滑空、着地。人物紹介をセリフではなく道具と動きで行う。</td></tr>
+    <tr><td><b>S1-C｜雨童との初戦</b></td><td>S1-18〜S1-19</td><td>—</td><td>低いカメラで雨童を大きく見せ、ソルの光が当たっても効かないことで「できる顔をしてできない」を一撃で示す。</td></tr>
+    <tr><td><b>S1-D｜アッシュのデコード</b></td><td>S1-20〜S1-22</td><td>—</td><td>顔を出さずに走る気配と詠唱を先行させ、発動時に初めてアッシュを見せる。球体魔法陣で雨童をソウルメールへ戻す。</td></tr>
+    <tr><td><b>S1-E｜拍手と侮蔑</b></td><td>S1-23〜S1-27</td><td>—</td><td>拍手、握りしめたスタンプ、遠のく音、アッシュの影、ルゥとエンバーの唸り。勝利の後にソルの敗北感を残す。</td></tr>
+  </table>
+
+  <div class="plotband">プロットⅠ｜侮蔑 ── 還せない落ちこぼれ <small>場面 S1〜S3</small></div>
+
+  <div class="scenehead">S1｜冒頭・導入＋最初の戦闘 <small>約0:00–3:20 ／ ビート S1-1〜S1-27</small></div>
+  <div class="mtx-wrap"><table class="mtx">
+    <thead><tr><th>#</th><th>尺</th><th>場所</th><th>娘</th><th>ソル</th><th>ナイア</th><th>アッシュ・他</th><th>カメラ・絵・演出</th><th>感情・問い</th><th>セリフ・音（仮）</th></tr></thead>
+    <tbody>
+      <tr><td class="sc">S1-1</td><td class="tm">0:05</td><td>暗転（黒画面）</td><td>―</td><td>―</td><td>―</td><td><b class="nox">ヴェイル</b>の声のみ</td><td>完全な純黒の画面に、白い一行「この世は、等しく平等ではない。」（自作テロップ画像を参照）が闇からにじみ出て浮かび→声と同期→一字ずつほどけて純黒へ溶けて消える。背景は終始真っ黒。人物・背景なし</td><td class="q">つかみ。問：誰の声？</td><td>ヴェイル(N)「この世は、等しく平等ではない。」</td></tr>
+      <tr><td class="sc">S1-2</td><td class="tm">0:04</td><td>夜の自宅・食卓</td><td>手元だけ。皿とフォークを持ち、冷めた料理に向き合う</td><td>―</td><td>―</td><td>―</td><td>正面からのインサート。固定〜ごく緩いプッシュイン。顔は映さず手元だけ。奥に手つかずの空席がぼんやり</td><td class="q">pity。問：この子は誰？</td><td>セリフなし。フォークと皿の硬い音、蛍光灯の微かな瞬き。</td></tr>
+      <tr><td class="sc">S1-3</td><td class="tm">0:03</td><td>同</td><td>―</td><td>―</td><td>―</td><td>―</td><td>壁掛けカレンダーのクローズアップ。今日の日付に手書きのマル印（誕生日）。色あせた紙、めくれた角</td><td class="q">切なさ。問：今日は何の日？</td><td>セリフなし。柱時計の秒針、遠い夜の物音。</td></tr>
+      <tr><td class="sc">S1-4</td><td class="tm">0:03</td><td>窓辺</td><td>―</td><td>―</td><td>―</td><td>―</td><td>レースカーテン越しの夜の窓。外は深い夜、遠い家々の灯りだけ。窓辺に小さな花瓶。室内の暖色と外の藍色の対比</td><td class="q">孤独。問：ひとりの夜？</td><td>セリフなし。夜風、遠い街のざわめき。</td></tr>
+      <tr><td class="sc">S1-5</td><td class="tm">0:05</td><td>暗転（黒画面）</td><td>―</td><td>―</td><td>―</td><td><b class="nox">ヴェイル</b>の声のみ</td><td>ふたたび純黒の画面に、白い一行「満たされなかった想いほど、誰にも気づかれずに零れ落ちる。」（自作テロップ画像を参照）が浮かび→声と同期→一字ずつほどけて消える。背景は終始真っ黒</td><td class="q">不穏。問：この声は何を告げる？</td><td>ヴェイル(N)「満たされなかった想いほど、誰にも気づかれずに零れ落ちる。」</td></tr>
+      <tr><td class="sc">S1-6</td><td class="tm">0:03</td><td>夜の自宅・食卓</td><td>とても寂しそうな顔。フォークを持つ手は止まり、視線は向かいの空席へ落ちる</td><td>―</td><td>―</td><td>―</td><td>クローズアップ。正面〜ややあおり。固定。寂しい表情を短く。まだ言葉はない</td><td class="q">pity。問：この子に何が？</td><td>セリフなし。蛍光灯の微かな瞬き。</td></tr>
+      <tr><td class="sc">S1-7</td><td class="tm">0:04</td><td>同</td><td>うつむきがちの横顔。睫毛が震え、声がこぼれ始める</td><td>―</td><td>―</td><td>―</td><td>サイドからのクローズアップ。固定〜ごく緩いプッシュイン</td><td class="q">切なさ。問：何を呟く？</td><td>娘「……誕生日くらいは、」</td></tr>
+      <tr><td class="sc">S1-8</td><td class="tm">0:04</td><td>同</td><td>自分の手元を見下ろす（POV）。フォークを少し強く握りしめる（指に力／関節が白む）</td><td>―</td><td>―</td><td>―</td><td>娘の一人称視点（POV）のインサート。固定。皿の上で小さく金属が鳴る</td><td class="q">こらえた悲しみ。問：その想いは？</td><td>娘「……一緒に、食べたかったな。」</td></tr>
+      <tr><td class="sc">S1-9</td><td class="tm">0:04</td><td>街の屋根のすぐ上の低い空</td><td>胸元から剥がれた想いが、屋根の上の空へ昇っている</td><td>―</td><td>―</td><td>―</td><td>屋根と同じ高さの低い視点（高空俯瞰にしない）。手前にテラコッタ屋根の稜線・鉢植え・物干し、塔は遠景に霞む。半透明の膜のシャボン玉（中に古い羊皮紙）が、風に乗って画面手前を左やや下から右へ横に流れる。薄雲・塵も同方向へ流れ"風"を見せる。膜の干渉色は縁に寄り、内部の羊皮紙は透過光。参照＝１対目デッドレター街角／ソウルメール.png（左＝健全）</td><td class="q">不穏の入口。問：この手紙はどこへ？</td><td>ヴェイル(N)「剥がれた思いは、」</td></tr>
+      <tr><td class="sc">S1-10</td><td class="tm">0:04</td><td>同（光球CU）</td><td>―</td><td>―</td><td>―</td><td>―</td><td>光球のクローズアップ。澄んだ干渉色がふっと冷えて翳り、くすんだ青灰の濁りが膜の内側からじわり湧いて球の丸みに沿って広がる（外から被せるフォグにしない）。輪郭は保ち、羊皮紙が靄の奥へ沈む。干渉色は濁った青へ褪せる（紫・黒に振らない）。参照＝ソウルメール.png（中央＝濁り）</td><td class="q">変質。問：手紙に何が？</td><td>ヴェイル(N)「記憶ごと浮かび上がり、」</td></tr>
+      <tr><td class="sc">S1-11</td><td class="tm">0:04</td><td>同（光球CU）</td><td>―</td><td>―</td><td>―</td><td>―</td><td>濁りきった球が内側からの圧に耐えるようにぐにゃり非対称に歪む。ガラス割れにせず、膜がふやけるように干渉色が抜け落ち暗い裂け目がにじみ広がる（膜の崩れ）。羊皮紙の文字が崩れ反り返る。きしむ気配。崩れの奥に次の予兆＝極小の青白い点が一粒灯る</td><td class="q">張りつめ。問：耐えきれるか？</td><td>ヴェイル(N)「澱んでゆく。」</td></tr>
+      <tr><td class="sc">S1-12</td><td class="tm">0:03</td><td>同→ホワイトアウト</td><td>―</td><td>―</td><td>―</td><td>―</td><td>破裂直前に半拍の完全静止（間）→中心に冷たい白熱の核、青白い光が膜を満たし、澄んだ高音とともにパッと割れる。コア白→青白→冷たい青へ減衰（黄金・電光・網状にしない＝救済色は温存）。破片と靄が右へ非対称にほどけ散り、青白→白へ蕩けて画面を覆う。屋根に一瞬の青白い照り返し。＝デッドレター化の発火</td><td class="q">急転。問：何に変わった？</td><td>セリフなし。光が弾ける澄んだ高い音、続いて風と空気の静かな環境音。</td></tr>
+      <tr><td class="sc">S1-13</td><td class="tm">0:12</td><td>高台</td><td>―</td><td>後ろ姿。帽子、カバン、スタンプの柄だけを順に見せる</td><td>―</td><td>ルゥは丸まって眠っている</td><td>帽子のつば→古い郵便カバン→星のチャーム→折りたたまれたエアスタンプ→背中。人物の細部で「何者？」を作る</td><td class="q">世界の手触り。問：この少年は？</td><td>セリフなし。高台の風、布の擦れ、ルゥの寝息。</td></tr>
+      <tr><td class="sc">S1-14</td><td class="tm">0:10</td><td>高台</td><td>―</td><td>遠い空で弾けた光を見て表情を引き締め、眠るルゥを肩で起こす</td><td>―</td><td>ルゥが寝ぼけて目を開く</td><td>ソルの横顔初出し。光る瞳はまだ弱い。手だけがルゥの背を軽く叩く。視線の先、街の方に割れた光の余韻が残る</td><td class="q">始動。問：彼は動く？</td><td>ソル「……デッドレターだ。」</td></tr>
+      <tr><td class="sc">S1-15</td><td class="tm">0:10</td><td>高台</td><td>―</td><td>カバンから小さく折りたたまれたエアスタンプを出し、空へ投げる</td><td>―</td><td>ルゥが飛び起きる</td><td>小さな切手片が「パン」と広がり、サーフボード状のエアスタンプへ変形。光の縁取りが一瞬だけ走る</td><td class="q">高揚。問：どう飛ぶ？</td><td>ソル「行くよ、ルゥ。」</td></tr>
+      <tr><td class="sc">S1-16</td><td class="tm">0:14</td><td>空→街</td><td>―</td><td>エアスタンプに乗って高台から飛び降りる</td><td>―</td><td>ルゥが先導</td><td>街の屋根すれすれを滑空。爆心へ近づくほど水滴と紙片が増える。最後は低空でカメラを抜く</td><td class="q">疾走。問：現場は？</td><td>ソル「今度こそ、還す。」</td></tr>
+      <tr><td class="sc">S1-17</td><td class="tm">0:12</td><td>街角</td><td>―</td><td>着地して人々の前に立つ</td><td>―</td><td>雨童＝涙と雨でできた中型デッドレター。人々が逃げる</td><td>低いカメラ。丸い水の影が路面に広がる。雨童の胸の中で、灯らない誕生日ろうそくが揺れる</td><td class="q">pityと恐怖。問：救える？</td><td>ソル「下がって！」</td></tr>
+      <tr><td class="sc">S1-18</td><td class="tm">0:16</td><td>街角</td><td>―</td><td>スタンプを構え、短い光魔法でしのぐ</td><td>―</td><td>雨童へ白金の光弾が直撃し、煙が巻く</td><td>未熟な太い光。ルゥの光標がわずかにずれ、路面の水だけが派手に弾ける＝制御の粗さを見せる</td><td class="q">admiration。問：効いた？</td><td>ソル「ルクス・レイ！」</td></tr>
+      <tr><td class="sc">S1-19</td><td class="tm">0:08</td><td>街角</td><td>―</td><td>勝った顔をしかけて硬直</td><td>―</td><td>煙が晴れ、雨童はほぼ無傷で起き上がる</td><td>煙の奥の涙目が光る。水滴が逆再生のように体へ戻り、ソルの表情が「まずい」に変わる</td><td class="q">不安。問：足りない？</td><td>セリフなし。煙が晴れる音、水滴が戻る音、雨童の低い唸り。</td></tr>
+      <tr><td class="sc">S1-20</td><td class="tm">0:10</td><td>街路・人混み</td><td>―</td><td>―</td><td>―</td><td>アッシュが走ってくる。エンバーはまだ映さない</td><td>顔を出さず、背中、肩、手元、人混みが左右に割れるカットで接近を見せる。詠唱だけ先に聞こえる</td><td class="q">登場の引き。問：誰が来た？</td><td>アッシュ「コーデックス・アニマ。ヴォクス・シネ・ヴィア——」</td></tr>
+      <tr><td class="sc">S1-21</td><td class="tm">0:12</td><td>街角</td><td>―</td><td>驚いて振り向く</td><td>―</td><td>アッシュがフレームインし、スタンプを押し出す</td><td>炎の魔法陣が球体化。紙のような多層リングが雨童を閉じ込める。ここで初めてアッシュの顔を見せる</td><td class="q">差の提示。問：これがデコード？</td><td>アッシュ「アド・エピストラム・レディ。——デコード。」</td></tr>
+      <tr class="peakrow"><td class="sc">S1-22</td><td class="tm">0:10</td><td>街角</td><td>―</td><td>見上げるしかない</td><td>―</td><td>雨童が「ウィーン」と鳴る球体内で圧縮され、ソウルメールへ戻る</td><td>魔法球体が縮み、封蝋印が「ポンッ」。同時に源の娘の声が観客だけに聞こえる</td><td class="q">救済の体感。問：怪物の正体は？</td><td>娘の声「誕生日くらいは、一緒にご飯を食べたかったの。」</td></tr>
+      <tr><td class="sc">S1-23</td><td class="tm">0:08</td><td>街角</td><td>―</td><td>一歩遅れている</td><td>―</td><td>人々が拍手。アッシュは涼しい顔で決める</td><td>拍手の手元→アッシュのドヤ顔気味の横顔→ソウルメールが光へ。ソルだけ拍手の輪の外に置く</td><td class="q">称賛と屈辱。問：誰がヒーロー？</td><td>セリフなし。拍手、安堵のざわめき、アッシュの短い息。</td></tr>
+      <tr><td class="sc">S1-24</td><td class="tm">0:08</td><td>街角</td><td>―</td><td>自分のスタンプを握りしめる手元</td><td>―</td><td>拍手は続く</td><td>手元のアップ。革手袋が軋む。星のチャームが小さく揺れる。画面端でアッシュの影だけが伸びる</td><td class="q">pity。問：ソルは何者？</td><td>ソル(N)「俺たちはポスト・アニマ。デッドレターを手紙に戻し、持ち主へ届ける。消すんじゃない。還すんだ。」</td></tr>
+      <tr><td class="sc">S1-25</td><td class="tm">0:08</td><td>街角</td><td>―</td><td>言葉にできない悔しさを噛みしめる</td><td>―</td><td>アッシュが近づく</td><td>拍手の音だけ遠のく。ソルの顔に影</td><td class="q">欠落。問：彼に何が足りない？</td><td>ソル(N)「そして俺は、まだ——」</td></tr>
+      <tr><td class="sc">S1-26</td><td class="tm">0:12</td><td>街角</td><td>―</td><td>反論できず目線を落とす</td><td>―</td><td>アッシュが追い打ちをかける</td><td>アッシュは顔の上半分を影に入れ、炎色の瞳だけ見せる。ソルの握るスタンプを見下ろす構図</td><td class="q">侮蔑。問：ソルは言い返せる？</td><td>アッシュ「また同じ過ちを犯すつもりか……デコードできない落ちこぼれが。」</td></tr>
+      <tr><td class="sc">S1-27</td><td class="tm">0:08</td><td>街角</td><td>―</td><td>悔しさを飲み込む</td><td>―</td><td>ルゥとエンバーが互いに「ウーッ」と唸る</td><td>飼い主同士の険悪さをファミリアで反復。ルゥの光とエンバーの火花が小さくぶつかり、次場面へ火種を残す</td><td class="q">関係の火種。問：この二人はなぜ不仲？</td><td>ルゥ「ウゥ……」／エンバー「グルル……」</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="scenehead">S2｜世界観説明 <small>3:00–4:00 ／ ビート S2-1〜S2-5</small></div>
+  <div class="mtx-wrap"><table class="mtx">
+    <thead><tr><th>#</th><th>尺</th><th>場所</th><th>ソル</th><th>ナイア</th><th>アッシュ・他</th><th>カメラ・演出</th><th>感情・問い</th><th>セリフ要点（仮）</th></tr></thead>
+    <tbody>
+      <tr><td class="sc">S2-1</td><td class="tm">0:12</td><td>空(帰投)</td><td>エアスタンプで帰投しモノローグ</td><td>―</td><td>ルゥが隣を飛ぶ</td><td>夕空・下に街、図解イメージが重なる</td><td class="q">わかる。問：この力は？</td><td>ソル(N)「負の思いは、記憶ごと心から剥がれる」</td></tr>
+      <tr><td class="sc">S2-2</td><td class="tm">0:12</td><td>イメージ画</td><td>(N続く)</td><td>―</td><td>シャボン玉のレター→濁って弾けデッドレター化</td><td>美→不穏へ転調</td><td class="q">理解。問：放置すると？</td><td>ソル(N)「それがソウルメール。腐れば、デッドレターになる」</td></tr>
+      <tr><td class="sc">S2-3</td><td class="tm">0:12</td><td>イメージ画</td><td>(N)手順を提示</td><td>―</td><td>弱らせ→デコード(球体)→シーリング(ポンッ)の図</td><td>所作をテンポよく図示</td><td class="q">わかる。問：どう救う？</td><td>ソル(N)「弱らせ、解読し、手紙に戻す。あとはグリッドが本人へ届ける」</td></tr>
+      <tr><td class="sc">S2-4</td><td class="tm">0:12</td><td>空</td><td>自嘲気味に</td><td>―</td><td>遠くにセレネのクーリエ</td><td>ソルの横顔、少し陰る</td><td class="q">humanity。問：ソルの居場所は？</td><td>ソル(N)「俺たちは "誰も切り捨てない"。だから、甘いと笑われる」</td></tr>
+      <tr><td class="sc">S2-5</td><td class="tm">0:12</td><td>配達局・外観</td><td>帰投・着地</td><td>―</td><td>クーリエ全景、卵の保育棚</td><td>クールダウン、温かな光</td><td class="q">移行。問：仲間は？</td><td>―</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="scenehead">S3｜クーリエの日常・侮蔑 <small>4:00–5:30 ／ ビート S3-1〜S3-10</small></div>
+  <div class="mtx-wrap"><table class="mtx">
+    <thead><tr><th>#</th><th>尺</th><th>場所</th><th>ソル</th><th>ナイア</th><th>アッシュ・他</th><th>カメラ・演出</th><th>感情・問い</th><th>セリフ要点（仮）</th></tr></thead>
+    <tbody>
+      <tr><td class="sc">S3-1</td><td class="tm">0:13</td><td>大広間・玄関アーチ→手前長辺【温】(2cut)</td><td>肩を落とし重い足取りで帰投・入室、手前長辺左寄りで半影に立ち尽くす(座らない=疎外)。室内を見回し師を探す所在なさ、「セレネさん」で肩が一瞬上がる</td><td>テーブル向こうに既に在室(この見回しでそっと提示・まだ喋らない)</td><td>暖炉脇大椅子にオルガが目を閉じ着席(不動)／右奥でヒナが卵の世話(まだ前に出ない)／アッシュは画に入れない(外＝後の侵入を際立たせる)</td><td>cut1=玄関アーチを額縁にした据わり固定、逆光シルエット→温かい昼光へ抜け足を止める(ソル＋ルゥのみ)。cut2=肩越しの浅いパンで暖炉・窓・卵棚をなめ横顔へ。屋外光を白飛び気味に=ラストの円環の布石</td><td class="q">「誰も切り捨てない家」を刷り込むがソルだけ温度から浮く=pityの第一滴。問：セレネは？</td><td>ソル(小声・力なく)「…ただいま」／ソル(探るように)「あれ、セレネさんは？」</td></tr>
+      <tr><td class="sc">S3-2</td><td class="tm">0:07</td><td>手前長辺・ナイア単独バスト【緩】</td><td>切り返し先で半影のまま落胆を飲み込む</td><td>手を止め振り向き、少し翳った表情で答える。語尾に心配の湿り、視線を一度伏せる</td><td>―</td><td>据わり＋ごく浅いスローイン。ソル→ナイアの切り返しで成立。ミオが肩で水気を一滴増やしぴたり静まる</td><td class="q">今日は師が庇わない=ソルが侮蔑を一人で受ける構図の伏線</td><td>ナイア「セレネさんは緊急任務で…当分、戻らないの…」(“当分”の前に半拍)</td></tr>
+      <tr><td class="sc">S3-3</td><td class="tm">0:08</td><td>右・卵棚側・ヒナ単独(見上げ)【緩】</td><td>口を開きかけるが声になる前に空気が変わる、苦笑も作れない半拍</td><td>―</td><td>ヒナが卵棚の手を止めぱっと顔を上げ、ソルへ無邪気に駆け寄り見上げて問う(相棒なし=未発現の無垢)</td><td>軽い切り返し・しゃがみ気味から見上げる構図、据わりのまま明度だけ上げ弾ませる。終端は答えを待つ顔のまま切りアッシュ入室音へ被せる</td><td class="q">善意が一番刺さるアイロニー。無垢な期待がソルの古傷を押す</td><td>ヒナ(明るく悪意ゼロ)「ソル先輩、今日こそデコード決まりました!?」(ソルが答える前に次へ)</td></tr>
+      <tr><td class="sc">S3-4</td><td class="tm">0:06</td><td>玄関アーチ(ソルと同じ入口)・アッシュ単独【冷】</td><td>(画面外・半影)身を硬くし半歩引く=後退で力関係を床に描く</td><td>―</td><td>アッシュが装備を解きかけ玄関から帰投・侵入=侮蔑が外から踏み込む。歩きながら横目で捉え言い放つ／エンバーが火の粉を一度パチッ</td><td>玄関アーチへ素早い水平トラック(左→右)でアッシュを追従、外光順光で“上”/ソルは半影で“下”。踏み込んだ瞬間スローイン止め</td><td class="q">侮蔑が家へ踏み込む冷の入口。アッシュは支配者でなく“向こう側”に置く</td><td>アッシュ(怒鳴らず低く硬く)「今日も恥を晒してたな、この落ちこぼれが」</td></tr>
+      <tr><td class="sc">S3-5</td><td class="tm">0:07</td><td>手前長辺・群像→プッシュイン【冷】</td><td>(手前・半影で浅くぼかし)庇われ身を縮める</td><td>ソルの前へ半歩張り出し(盾の横運動)、テーブル越しにアッシュへ向き直り反発。語尾を少し震わせ“守る焦り”に</td><td>(奥に浅くぼかし)アッシュ、エンバーの火の粉。アッシュ↔ナイアの切り返しで対立を回す</td><td>切り返し＋ごく浅いプッシュイン、一画面3人厳守(ナイア手前・ソル中・アッシュ奥)。ミオが勢いよく跳ね水滴を散らす</td><td class="q">信じる者の即時の反発=admiration。怒りでなく守る焦りで同じ本気の温度でぶつかる</td><td>ナイア(強いが心配の裏打ち)「なんでそういつもソルに突っかかるの」</td></tr>
+      <tr><td class="sc">S3-6</td><td class="tm">0:09</td><td>中央奥・アッシュ単独(煽りロー→正面)【冷・荒/底】</td><td>(俯瞰気味で小さく)反論できず立ち尽くし、テーブル端で右手首の妹の星形チャームを無意識に握る(言葉の代わり)</td><td>―</td><td>アッシュが天板に片手を強くつき半身で乗り出す(主導権の身体記号)。火の粉を強く散らす→言い終わりに息を吐く=怒りの底の恐れ。“思い出”で視線を一瞬逸らす</td><td>煽り(ロー)＋順光で威圧→核心台詞でスローイン止め正面寄りへ=“怒鳴り顔でなく恐れを孕んだ顔”。暖炉の橙をフレーム外に=冷の底。瞳CU不使用</td><td class="q">humanity=stakesを誰より知る本気。失敗=人の記憶/思い出が永遠に失われる恐怖。荒さは真剣さの裏返し</td><td>アッシュ(荒く張り語尾が裏返る=怒りでなく恐れ)「じゃあ、人の記憶、思い出がどうなってもいいってんのかぁ？」(後に無音の一拍)</td></tr>
+      <tr><td class="sc">S3-7</td><td class="tm">0:08</td><td>暖炉脇大椅子／左壁際【静観】(各1cut・同居させない)</td><td>―</td><td>―</td><td>cut-a=オルガ単独:暖炉脇大椅子で目を閉じ据わり不動・完全無言、橙が白髭を温め冷の中に“家の芯”を一点残す／ジオが足元で一度重く床を踏む。cut-b=レヴィ単独:壁に背を預け腕を組み片足に体重で静観・完全無言・一瞥もくれず／クリオが尾だけゆらり</td><td>両カット据わり・クレーン不使用。cut-a=暖炉脇へ緩いパン→固定。cut-b=壁際へ切り返しロー寄り、レヴィを心持ち短く硬く切り“動かない格上”</td><td class="q">裁かず在る二つの無言の重し。崩れず在る家の“底”を受容の安全地帯に</td><td>(両者とも完全無言・音を足さない冷たい間。薪のはぜとクリオの結晶音を一点ずつ)</td></tr>
+      <tr><td class="sc">S3-8</td><td class="tm">0:06</td><td>ソルとアッシュの間・群像(最大3人)【裂】</td><td>(手前で固まったまま)</td><td>―</td><td>ヒナが卵棚側から二人の間へ走り込み、両手を広げ縦に伸び上がって割って入る(場違いなほど無垢)／アッシュは奥で半身を引き浅くぼかし／火花と水滴が頭上で交差しかけ、ふっと引く</td><td>据わりの群像→ヒナの走り込みに合わせ切り返しでヒナ正面へ。アッシュは奥でぼかし主役2人に集中。割込は一人の走り込み=同時もつれ回避。暖炉の橙を端からじわり戻し始め</td><td class="q">子どもの善意が張りを一瞬裂く緩衝。だが解決はしない=優しさだけでは救えない余白</td><td>ヒナ(無邪気で必死)「二人とも落ち着いてください〜！！」(語尾が誰にも応えられず空気に吸われる)</td></tr>
+      <tr class="peakrow"><td class="sc">S3-9</td><td class="tm">0:13</td><td>手前長辺・ソル＋ナイア2ショット→ソル単独【受容・感情の核】(2cut)</td><td>ナイアへ向き直り、震えを抑え怒りも泣きもなく自分を切り捨てるように穏やかに告げる。後半で視線を床へ落とし星形チャームを握り直す(“それでも還したい”が手に出る)。背筋はわずかに伸びる(諦めでなく受容)</td><td>(手前)言葉を失い唇を結ぶ=無言の受け、庇おうとした手が宙に浮く。ミオがしずく一粒</td><td>アッシュ・ヒナ・レヴィ・オルガは映さず2人に集中。ルゥが羽を畳み頬へ寄り“そんなに自分を責めるな”を無言で代弁</td><td>cut1=2ショット据わり→ソル単独へごくゆっくりスローイン、ソルだけ浅い被写界深度で孤立、奥に暖炉の橙とヒナを“すぐそこの救い”の浅ボケで残す。cut2=俯きの星形チャームの手元と肩のルゥへピン送り。溜めは静止＋微モーション＋消音。瞳CU不使用</td><td class="q">★感情のピーク。自分で自分を殴る痛み=pity頂点。問「ソルの“還す”は甘さか強さか」を答えず観客に預ける</td><td>ソル(囁くように・“いいんだ”は吐息へ)「ナイア、庇ってくれてありがとう。でも……アッシュが言ってることが、もっともだから。いいんだ……」／直後ルゥが一度だけ淡く金に灯り消える(ファミリア体の淡光=規律内の覚醒の予感)</td></tr>
+      <tr><td class="sc">S3-10</td><td class="tm">0:09</td><td>手前長辺→玄関アーチ→屋外昼光【微温・円環】</td><td>まだ俯きがちだが小さく頷いて従う。ルゥが背を押すように飛ぶ</td><td>翳りを振り払い明るく取り繕う、出る一歩手前でソルの顔を覗き込み半拍の笑顔を作って誘う。袖を軽く引き先導</td><td>ヒナが手を振って見送る(アーチ手前・4人を超えない)／アッシュは工房側へ背を向け動線から外れる(侮蔑者退場・対立は未解決のまま保留)／オルガ・レヴィは不動</td><td>2ショット据わり→玄関アーチへの横移動トラック(左へ・一定速度)で背中を追い、入ってきた同じアーチの外の眩い昼光へ抜ける(暗→明・色温度の跳ね)。S3-1の反転=入口=出口の円環。室内の薪を断ち屋外の賑わいへ</td><td class="q">found familyの愛が重荷から救いへ反転。S4への入口を暗→明で気持ちよく踏み越える</td><td>ナイア(そっと→“そうだ！”から明るく二段)「ソル……そうだ！ 気分転換に、ポストロウに行こうよ！」(BGMと港のざわめきが温かく回復、S4を薄く先触れ)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="plotband">プロットⅡ｜それでも、必ず還す ── 静かな決意 <small>場面 S4〜S5</small></div>
+
+  <div class="scenehead">S4｜ナイアと街・食事 <small>5:30–7:00 ／ ビート S4-1〜S4-9</small></div>
+  <div class="mtx-wrap"><table class="mtx">
+    <thead><tr><th>#</th><th>尺</th><th>場所</th><th>ソル</th><th>ナイア</th><th>アッシュ・他</th><th>カメラ・演出</th><th>感情・問い</th><th>セリフ要点（仮）</th></tr></thead>
+    <tbody>
+      <tr><td class="sc">S4-1</td><td class="tm">0:12</td><td>商店街</td><td>並んで歩く、少し俯く</td><td>隣で明るく</td><td>―</td><td>夕暮れの商店街、温かな雑踏</td><td class="q">humanity・緩急。問：何を話す？</td><td>ナイア「アッシュ、毎回ソルに噛みつくよね」</td></tr>
+      <tr><td class="sc">S4-2</td><td class="tm">0:12</td><td>商店街</td><td>自嘲「…あいつの言ってること、本当だからさ」</td><td>表情を曇らせる</td><td>―</td><td>ソルの横顔、足元</td><td class="q">pity。問：折れた？</td><td>ソル「本当のこと、だからさ」</td></tr>
+      <tr><td class="sc">S4-3</td><td class="tm">0:14</td><td>屋台</td><td>封蝋まんじゅうを受け取る</td><td>「ほら、奢り。元気出して」</td><td>屋台の主が印を「ポンッ」</td><td>湯気、封蝋の印が押される所作</td><td class="q">緩急(世界の食)。問：この世界の味は？</td><td>ナイア「はい、封蝋まんじゅう。アツアツだよ」</td></tr>
+      <tr><td class="sc">S4-4</td><td class="tm">0:12</td><td>屋台</td><td>ソウルソーダの玉が弾けるのを見て黙る</td><td>不思議そうに見る</td><td>ソウルソーダ(シャボン玉状)を二つ</td><td>ソルの手で泡が弾ける→ソウルメールと重なる</td><td class="q">切なさ(作れぬものを食べる)。問：何を思う？</td><td>ソル「…ソウルメール、みたいだろ」</td></tr>
+      <tr><td class="sc">S4-5</td><td class="tm">0:12</td><td>商店街・ベンチ</td><td>食べながら聞く</td><td>「私も昔は…もう誰も救えないって思ってた」ぽつり</td><td>―</td><td>ナイアの横顔、過去の影</td><td class="q">humanity(伏線:過去任務/レヴィの鏡)。問：過去は？</td><td>ナイア「もう誰も救えないって、思ってた時期があるんだ」</td></tr>
+      <tr><td class="sc">S4-6</td><td class="tm">0:10</td><td>ベンチ</td><td>顔を上げナイアを見る</td><td>「…でも、変わったの。ある人のおかげで」微笑</td><td>―</td><td>二人の距離、夕陽</td><td class="q">関係(④報われぬ想い)。問：誰のこと？</td><td>ナイア「…ある人の、おかげでね」</td></tr>
+      <tr><td class="sc">S4-7</td><td class="tm">0:14</td><td>ベンチ</td><td>手首の星のチャームに触れる</td><td>はっと見つめる</td><td>―</td><td>チャームが淡く光る／決意の表情(かっこいい山)</td><td class="q">admiration。問：本気は？</td><td>ソル「でも大丈夫。僕は必ず、ポスト・アニマとして成長する。ステラを……必ず還す」</td></tr>
+      <tr><td class="sc">S4-8</td><td class="tm">0:08</td><td>ベンチ</td><td>―</td><td>"還された自分" を重ね、何か言いかける</td><td>―</td><td>ナイアの口が開く→</td><td class="q">関係のピーク手前。問：ナイアは？</td><td>ナイア「ソル、私…」</td></tr>
+      <tr><td class="sc">S4-9</td><td class="tm">0:06</td><td>商店街</td><td>弾かれたように立つ</td><td>言葉を飲む</td><td>街の方で大爆発、地鳴り</td><td>平和→急転、屋台の皿が落ちる</td><td class="q">急転。問：何事!?</td><td>―（轟音）</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="scenehead">S5｜急変・出動 <small>7:00–7:30 ／ ビート S5-1〜S5-3</small></div>
+  <div class="mtx-wrap"><table class="mtx">
+    <thead><tr><th>#</th><th>尺</th><th>場所</th><th>ソル</th><th>ナイア</th><th>アッシュ・他</th><th>カメラ・演出</th><th>感情・問い</th><th>セリフ要点（仮）</th></tr></thead>
+    <tbody>
+      <tr><td class="sc">S5-1</td><td class="tm">0:08</td><td>商店街</td><td>爆心を見据える</td><td>並んで身構える</td><td>黒煙と紫の閃光(ノクスの気配)</td><td>二人の顔→遠くの異様な光</td><td class="q">緊張。問：普通じゃない？</td><td>ソル「…っ、行こう」</td></tr>
+      <tr><td class="sc">S5-2</td><td class="tm">0:10</td><td>空</td><td>エアスタンプで急行</td><td>並走</td><td>ルゥ・ミオが先導</td><td>S1と同じ "出動" の構図(韻)／空気は重い</td><td class="q">高揚と不安。問：何が待つ？</td><td>ナイア「セレネさんもいないのに…！」</td></tr>
+      <tr><td class="sc">S5-3</td><td class="tm">0:12</td><td>現場手前</td><td>滑空しながら現場を見て息を呑む</td><td>同じく</td><td>巨大な影が立ち上る</td><td>近づくほど大きくなる影、逃げ惑う人</td><td class="q">戦慄。問：止められる？</td><td>ソル「なんだ、あれ…」</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="plotband">プロットⅢ｜闇との再会 ── 過去と覚醒 <small>場面 S6〜S8</small></div>
+
+  <div class="scenehead">S6｜ノクス属性の敵・大回想 ★ <small>7:30–11:00 ／ ビート S6-1〜S6-13（最大の山）</small></div>
+  <div class="mtx-wrap"><table class="mtx">
+    <thead><tr><th>#</th><th>尺</th><th>場所</th><th>ソル</th><th>ナイア</th><th>アッシュ・他</th><th>カメラ・演出</th><th>感情・問い</th><th>セリフ要点（仮）</th></tr></thead>
+    <tbody>
+      <tr><td class="sc">S6-1</td><td class="tm">0:08</td><td>街・敵の前</td><td>駆け込み足を止め敵を見上げる</td><td>隣で身構える</td><td>敵＝<b class="nox">喪服の蝶/蛾</b>（黒紫・鱗粉が涙のよう）</td><td>仰角でソルを小さく敵を大きく／鱗粉スロー</td><td class="q">不穏。問：この闇は何だ？</td><td>ナイア「ソル、来るよ！」</td></tr>
+      <tr><td class="sc">S6-2</td><td class="tm">0:10</td><td>同</td><td>「ノクス属性の…モンスター…？」</td><td>攻撃の構え</td><td>敵が翅を開く</td><td>瞳に敵の黒紫が映り込む／音が引く</td><td class="q">既視感の予兆。問：なぜ見覚えが？</td><td>ソル「ノクス属性の…」</td></tr>
+      <tr><td class="sc">S6-3</td><td class="tm">0:06</td><td>同→白フラッシュ</td><td>「え……？」意識が引きずられる</td><td>「ソル!?」声が届かない</td><td>鱗粉とステラの記憶が二重写し</td><td>鱗粉→星の粉へモーフ、ホワイトアウト</td><td class="q">発火。問：何を思い出した？</td><td>―（声が遠のく）</td></tr>
+      <tr><td class="sc">S6-4</td><td class="tm">0:25</td><td>回想・自宅（のどか）</td><td>8歳。母の手を握り立ち尽くす</td><td>―</td><td>母アンナ＝衰弱／5歳ステラが寄り添う</td><td>暖色の室内・外は草原／寄り→母の手</td><td class="q">pity・humanity。問：母は助かる？</td><td>ステラ「お母さん、行かないで」</td></tr>
+      <tr><td class="sc">S6-5</td><td class="tm">0:18</td><td>回想・自宅</td><td>唇を噛み何も言えない（託された重圧）</td><td>―</td><td>母、微かに笑み→目を閉じ手の力が抜ける</td><td>母の手のアップ→力が抜ける／静寂</td><td class="q">喪失の予感。問：この後どうなる？</td><td>母「…ありがとう」（かすれ）</td></tr>
+      <tr><td class="sc">S6-6</td><td class="tm">0:14</td><td>回想・自宅</td><td>「ステラ、待っ…！」手を伸ばす</td><td>―</td><td>ステラ＝絶叫し体から黒い靄（ソウル）</td><td>ステラのアップ→瞳が闇に染まる／低音</td><td class="q">急変。問：ステラはどうなる？</td><td>ステラ「いや…いやああ！」</td></tr>
+      <tr><td class="sc">S6-7</td><td class="tm">0:12</td><td>回想・崩壊（マルチカット）</td><td>衝撃波で吹き飛ばされる</td><td>―</td><td>ステラ＝<b>ロストレター化</b>／家が内側から爆ぜる</td><td>マルチカットで家が砕ける／コマ割り編集</td><td class="q">戦慄。問：ソルは無事か？</td><td>―（轟音）</td></tr>
+      <tr><td class="sc">S6-8</td><td class="tm">0:16</td><td>回想・瓦礫の中</td><td>倒れたまま動けず見上げる</td><td>―</td><td>ステラがソルへ手を伸ばす→間に<b>セレネ</b>が割り込む</td><td>スローでセレネ着地・月光</td><td class="q">admiration（救い手）。問：誰だ？</td><td>セレネ「下がりなさい」</td></tr>
+      <tr><td class="sc">S6-9</td><td class="tm">0:18</td><td>回想・瓦礫の中</td><td>守られて呆然</td><td>―</td><td>セレネ＝防ぎ→弾き飛ばし→大魔法で追い詰める</td><td>勇者の戦闘（短く強く）・白金の光</td><td class="q">畏怖と希望。問：ステラは救われる？</td><td>セレネ「（詠唱）還りなさい…」</td></tr>
+      <tr><td class="sc">S6-10</td><td class="tm">0:16</td><td>回想・瓦礫の中</td><td>「ステラ！」手を伸ばすが届かない</td><td>―</td><td><b>ヴェスパー</b>（巨躯の成獣）が出現→ステラを掴む</td><td>上空から影・暴力的に掴み去る／背後にボスの気配</td><td class="q">喪失の決定打。問：誰の差し金？</td><td>ヴェスパー「あの方がお望みの、器だ」</td></tr>
+      <tr><td class="sc">S6-11</td><td class="tm">0:10</td><td>回想・暗転</td><td>崩れ落ち母も妹も失う／呑まれかける</td><td>―</td><td>セレネ、追うが及ばずソルを見下ろす</td><td>引き→焼け跡に二人・星空</td><td class="q">絶望。問：ソルも呑まれる？</td><td>―（嗚咽）</td></tr>
+      <tr class="peakrow"><td class="sc">S6-12</td><td class="tm">0:22</td><td>白い空間（無背景）</td><td>泣きながら「僕を…一人前のポスト・アニマにしてください」</td><td>―</td><td>セレネ、膝をつき手をかざす→白金の光がソルへ渡る</td><td>真っ白の中、光が手から手へ／瞳に白金が灯る</td><td class="q">継承の荘厳。問：この光は何を変える？</td><td>セレネ「…いいでしょう。この光、あなたに託す」</td></tr>
+      <tr><td class="sc">S6-13</td><td class="tm">0:08</td><td>白→現在へ</td><td>瞳に白金（シグナ）→現在の街へ戻る</td><td>（現在）「ソル！」</td><td>敵＝蝶/蛾が眼前</td><td>白金の瞳のアップ→現在の喧騒が戻る</td><td class="q">覚悟の起点。問：今のソルに何ができる？</td><td>―（息を呑む）</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="scenehead">S7｜戦況悪化 <small>11:00–12:00 ／ ビート S7-1〜S7-7</small></div>
+  <div class="mtx-wrap"><table class="mtx">
+    <thead><tr><th>#</th><th>尺</th><th>場所</th><th>ソル</th><th>ナイア</th><th>アッシュ・他</th><th>カメラ・演出</th><th>感情・問い</th><th>セリフ要点（仮）</th></tr></thead>
+    <tbody>
+      <tr><td class="sc">S7-1</td><td class="tm">0:08</td><td>現場</td><td>回想から戻り呆然、動けない</td><td>デッドレターと交戦中</td><td>敵＝喪服の蝶/蛾が暴れる</td><td>ソルの放心の顔→戦うナイア</td><td class="q">焦り。問：ソルは動ける？</td><td>―</td></tr>
+      <tr><td class="sc">S7-2</td><td class="tm">0:10</td><td>現場</td><td>反応できない</td><td>「ソル、危ない！」叫ぶ</td><td>―</td><td>ナイアの必死の声→届かないソル</td><td class="q">危機。問：避けられる？</td><td>ナイア「ソル、危ない！」</td></tr>
+      <tr><td class="sc">S7-3</td><td class="tm">0:08</td><td>現場</td><td>ノクスの一撃で吹き飛び画面外へ</td><td>手を伸ばす</td><td>―</td><td>ソルが画面外へ／ナイアの絶叫</td><td class="q">衝撃。問：無事？</td><td>ナイア「ソル——！」</td></tr>
+      <tr><td class="sc">S7-4</td><td class="tm">0:12</td><td>現場</td><td>（画面外）</td><td>一人で奮戦、水魔法で拘束を試みる</td><td>―</td><td>水の奔流が敵を包む→ノクス相性で弾かれる</td><td class="q">admiration・無力。問：水は効く？</td><td>ナイア「これでも…っ、効かない!?」</td></tr>
+      <tr><td class="sc">S7-5</td><td class="tm">0:10</td><td>現場</td><td>（不在）</td><td>押される</td><td>アッシュ駆けつけ、炎で援護</td><td>アッシュ登場、炎の壁</td><td class="q">救援。問：二人で勝てる？</td><td>アッシュ「ナイア！ソルはどこだ!?」</td></tr>
+      <tr><td class="sc">S7-6</td><td class="tm">0:12</td><td>現場</td><td>（不在）</td><td>「わからない、吹き飛ばされて…！」</td><td>アッシュ、炎も通らず歯噛み</td><td>アッシュの苦渋(還す派が漏らす)</td><td class="q">重い予感。問：パージ？</td><td>アッシュ「これは…パージするしか、ないかもな」</td></tr>
+      <tr><td class="sc">S7-7</td><td class="tm">0:10</td><td>現場</td><td>（不在）</td><td>守りながら吹き飛ばされる</td><td>アッシュも弾かれる</td><td>二人が瓦礫へ／敵が咆哮</td><td class="q">絶体絶命。問：誰が止める？</td><td>―（咆哮）</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="scenehead">S8｜覚醒＝還す成功 ★ <small>12:00–13:30 ／ ビート S8-1〜S8-9（カタルシス）</small></div>
+  <div class="mtx-wrap"><table class="mtx">
+    <thead><tr><th>#</th><th>尺</th><th>場所</th><th>ソル</th><th>ナイア</th><th>アッシュ・他</th><th>カメラ・演出</th><th>感情・問い</th><th>セリフ要点（仮）</th></tr></thead>
+    <tbody>
+      <tr><td class="sc">S8-1</td><td class="tm">0:10</td><td>瓦礫・ソル視点</td><td>うつ伏せで意識が戻る、視界ぼやける</td><td>(遠く)倒れている</td><td>敵がナイア達に迫る</td><td>ぼやけた一人称、音がこもる</td><td class="q">緊張。問：立てる？</td><td>―（荒い息）</td></tr>
+      <tr><td class="sc">S8-2</td><td class="tm">0:10</td><td>同</td><td>二人が吹き飛ばされた光景を見る</td><td>―</td><td>アッシュ・ナイアが倒れる</td><td>ぼやけ→焦点が合う、痛切</td><td class="q">痛み・責任。問：何ができる？</td><td>ソル「ナイア…アッシュ…っ」</td></tr>
+      <tr><td class="sc">S8-3</td><td class="tm">0:08</td><td>同</td><td>手首の星のチャームが目に入る</td><td>―</td><td>―</td><td>チャームのアップ、淡い光</td><td class="q">起点。問：何を思い出す？</td><td>―</td></tr>
+      <tr><td class="sc">S8-4</td><td class="tm">0:16</td><td>短い回想・自宅</td><td>(幼)母の枕元で告げられる</td><td>―</td><td>母アンナが微笑む(ステラは知らない)</td><td>柔らかな回想、母の手がソルの頭に</td><td class="q">humanity(託された絆)。問：覚悟は？</td><td>母「ステラのことは、頼んだわよ」</td></tr>
+      <tr><td class="sc">S8-5</td><td class="tm">0:10</td><td>現在・瓦礫</td><td>立ち上がる</td><td>見上げる</td><td>―</td><td>震える脚で立つ、決意の瞳</td><td class="q">admiration(再起)。問：今度は違う？</td><td>ソル「俺は…消さない。——返しに、来たんだ」</td></tr>
+      <tr><td class="sc">S8-6</td><td class="tm">0:12</td><td>現場</td><td>瞳の白金が最大に灯る、シグナ再発現</td><td>息を呑む</td><td>アッシュも見上げる</td><td>ルゥが眩く燃える、白金の光が満ちる</td><td class="q">高揚。問：何が起きる？</td><td>ソル「ルゥ…！」</td></tr>
+      <tr class="peakrow"><td class="sc">S8-7</td><td class="tm">0:16</td><td>現場</td><td>光を細い糸に——一枚ずつほどく細かい制御でデコード</td><td>見守る</td><td>アッシュ絶句</td><td>S1の太い光→細い糸へ反転、紙片が解ける</td><td class="q">カタルシス。問：還せる!?</td><td>ソル「ほどけ……ゆっくり、還れ」</td></tr>
+      <tr><td class="sc">S8-8</td><td class="tm">0:10</td><td>現場</td><td>ソウルメールへ戻し→シーリング「ポンッ」</td><td>涙ぐむ</td><td>―</td><td>巨体がシャボン玉に縮み、封蝋が押される</td><td class="q">浄化の感動。問：成った？</td><td>―（ポンッ）</td></tr>
+      <tr><td class="sc">S8-9</td><td class="tm">0:08</td><td>現場</td><td>レターがグリッドへ、光が本人へ還る</td><td>―</td><td>街の人々が見上げる</td><td>光が空へ昇る、静寂と歓声</td><td class="q">達成。問：皆の反応は？</td><td>ソル「……還った」</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="plotband">プロットⅣ｜差し込んだ光 ── 世界への引き（コーダ） <small>場面 S9</small></div>
+
+  <div class="scenehead">S9｜締め・続編フック <small>13:30–15:00 ／ ビート S9-1〜S9-7</small></div>
+  <div class="mtx-wrap"><table class="mtx">
+    <thead><tr><th>#</th><th>尺</th><th>場所</th><th>ソル</th><th>ナイア</th><th>アッシュ・他</th><th>カメラ・演出</th><th>感情・問い</th><th>セリフ要点（仮）</th></tr></thead>
+    <tbody>
+      <tr><td class="sc">S9-1</td><td class="tm">0:12</td><td>現場・浄化後</td><td>膝をつき肩で息</td><td>駆け寄る</td><td>アッシュ、何も言えず立ち尽くす</td><td>夕闇に光の余韻、瓦礫</td><td class="q">余韻。問：皆どう思った？</td><td>―</td></tr>
+      <tr><td class="sc">S9-2</td><td class="tm">0:12</td><td>現場</td><td>見上げる、照れ</td><td>「ソルのそれ、"甘い" んじゃない。——一番、強いんだよ」</td><td>―</td><td>ナイアの涙と笑み</td><td class="q">関係の回収。問：認められた？</td><td>ナイア「ソルのそれ、"甘い" んじゃない。——一番、強いんだよ」</td></tr>
+      <tr><td class="sc">S9-3</td><td class="tm">0:12</td><td>夜空の下</td><td>遠くにステラの気配を感じる</td><td>隣に立つ</td><td>夜空に星(塔の約束)</td><td>ソルの視線が彼方へ／星のチャーム</td><td class="q">目標の再確認。問：ステラは？</td><td>ソル「待ってろ、ステラ。今度は——必ず還す」</td></tr>
+      <tr><td class="sc">S9-4</td><td class="tm">0:14</td><td>高台/配達塔</td><td>(遠景・気配)</td><td>―</td><td>セレネ初お披露目：靴先→スタンプ→成体ファミリア→白金の瞳</td><td>月光、溜めて顔を映す</td><td class="q">大物の登場。問：彼女は誰？</td><td>―</td></tr>
+      <tr class="peakrow"><td class="sc">S9-5</td><td class="tm">0:14</td><td>高台</td><td>―</td><td>―</td><td>セレネ、街の光を見下ろし名は呼ばず(ヴェイルへの含み)</td><td>月を背に、静かな微笑</td><td class="q">続編の核(伝承者)。問：誰に言った？</td><td>セレネ「見ていなさい。あなたが見限ったこの世界に、光が差し込んだわよ」</td></tr>
+      <tr><td class="sc">S9-6</td><td class="tm">0:12</td><td>闇の彼方</td><td>―</td><td>―</td><td>ヴェスパーと背後の "気配"(ヴェイル・姿なし)が暴走を観察</td><td>暗がりに二つの影、紫の眼。冒頭モノローグの声だけがもう一度重なる</td><td class="q">引き(負を撒く者)。問：黒幕は？</td><td>ヴェスパー「…ほう。あれが、ね」／ヴェイル(N)「光は、まだ折れていないか。」</td></tr>
+      <tr><td class="sc">S9-7</td><td class="tm">0:10</td><td>ラストカット</td><td>星のチャームを握り前を見る</td><td>隣で頷く</td><td>―</td><td>二人の背中→夜明けの兆し、タイトル</td><td class="q">誓い＋引きで終幕。問：次は？</td><td>（タイトル）「——ポスト・アニマ」</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>感情設計（イグレシアスのレンズ）</h3>
+  <table>
+    <tr><th>要素</th><th>本話での仕込み</th></tr>
+    <tr><td>つかみ</td><td>独自（郵便で "斬らず還す"）×既視感（落ちこぼれ覚醒もの）＋対立の予感（消す vs 還す／アッシュの侮蔑）</td></tr>
+    <tr><td>共感</td><td>pity＝継いだ光を扱えず侮られる無力感／admiration＝諦めない志・体術・前向き宣言／humanity＝妹への愛・星のチャーム・母の最期・二人の食事</td></tr>
+    <tr><td>中心的な問い</td><td>消すか還すか／ソルの甘さは犠牲か救いか（過去任務に埋め込み、S8で行動で一つ答えを出す）</td></tr>
+    <tr><td>開かれた結末</td><td>妹奪還は未達／背後の主＝鏡像／負を撒く者の気配／伝承の代償で衰えゆくセレネ＝世界規模の問いへ</td></tr>
+  </table>
+</section>
+
+<!-- ============ PAGE 5 : 今後の見通し ============ -->
+<section class="page" id="p5">
+  <h2>今後の見通し ── 長編ロードマップ</h2>
+  <ul>
+    <li><b>主筋：</b>妹を取り戻す旅 × 世界に負を撒くノクスとの攻防 × "還すか消すか" の問い。</li>
+    <li><b>成長：</b>デコードできる個体の格を上げる（関係＝ファミリア／修行＝クーリエ／代償＝パージの痛み）。</li>
+    <li><b>中盤：</b>ボス・ヴェイルの正体＝同じ傷を持つポスト・アニマと判明。妹ステラの闇落ち。</li>
+    <li><b>世界の主題：</b><b>分断（ノクス＝断つ闇）を、繋ぎ直せるか（ルクス＝繋ぐ光）</b>。属性で割れた門閥世界に、セレネの「はぐれ者の家」と、光の再来ソルが投じる問い。ソル個人の戦い（一つの魂を還す）＝世界の戦い（繋がりを取り戻す）の縮図。</li>
+    <li><b>終盤フック：</b><b>ポストグリッド崩壊 → 世界が混沌</b>。古のルクスが築いた "光の糸" が断たれ、魂が還れない世界で、ソルは「斬らずに還す」理想を貫けるか。</li>
+  </ul>
+
+  <h3>続編フック</h3>
+  <table>
+    <tr><th>フック</th><th>引き</th></tr>
+    <tr><td>妹ステラ</td><td>生存と変貌。ノクスの思想に共感して闇落ちするのか。奪還できるのか。</td></tr>
+    <tr><td>ボスの正体</td><td>ヴェイル＝同じ傷を持つポスト・アニマ。弟テオ（ロストレター）の行方。</td></tr>
+    <tr><td>ポストグリッド</td><td>誰が・なぜ壊すのか。崩壊で魂が還れない混沌（オルガが秘密を知る）。</td></tr>
+    <tr><td>ソルの覚醒</td><td>扱えぬ最強属性ルクスの術理を解き明かす成長。両属性持ちの出現。</td></tr>
+    <tr><td>レヴィの氷</td><td>ソルの "還す" は、凍りついたレヴィの心を溶かせるか。</td></tr>
+  </table>
+
+  <h2>確定事項（2026-05-31）</h2>
+  <div class="note">
+    覚醒の核＝<b>"還す" 成功型</b>／<b>第一話プロット確定</b>。役割スワップ＝<b>アッシュ（炎・侮るライバル）／レヴィ（氷・尊敬される冷酷エース・1話は佇まいのみ）</b>。<b>セレネ（旧グレン・強い女性勇者）／ナイア（旧マリン・水維持・レヴィと鏡）</b>。ヒナ＝10歳の見習い未発現／オルガ＝父的長老（テラ）。年齢＝ソル16・回想8年前・12歳正式見習い・歴4年。属性印＝瞳（シグナ）／相性＝常5の環（ゲイルはフローラに統合）／成り立ち＝シグナ発現→孵化。
+  </div>
+  <div class="note" style="border-style:solid; border-color:var(--lux);">
+    <b>世界観の深化（同日 第2セッション）：</b>クーリエ＝元来 "属性門閥"／<b>セレネのクーリエ＝全属性のはぐれ者の家</b>。<b>ルクスの真髄＝繋ぐ・還す光＝ポストグリッドを築いた属性</b>（ソル＝失われた光の系譜の再来／覚醒＝古の光に触れる）。<b>旧世界＝平和→ノクス台頭→属性分断</b>の歴史。<b>ノクス＝ヴェイルに賛同する者たちの共同体</b>（仲間が増える）。
+  </div>
+  <div class="note" style="border-style:solid; border-color:var(--lux);">
+    <b>第二稿の確定（2026-06-02）：</b><b class="lux">ルクス＝伝承式の系譜</b>（常5＋ノクスは原体験／ルクスのみ伝承で宿る）。器の条件＝呑まれず希望を灯した魂。<b>セレネ→ソルへ伝承</b>（白い空間の誓い＝シグナ発現）、伝承の代償でセレネは衰える（続編エンジン）。<b>属性発現を明文化</b>（乗り越えれば属性者／呑まれれば怪物の源）。<b>アッシュ再定義</b>＝本来 "還す" 派で、ソルの "甘さ＝実力不足が犠牲を生む" ことへの怒りで侮蔑（パージ即決派は <span style="color:var(--ice)">レヴィ</span>）。<b>クライマックスの敵＝ノクス属性のデッドレター</b>（人を内包しない稀少個体／ルクスのソルだけが還せる）。<b>第一話を9場面・4プロットへ再構成</b>（回想はクライマックスのノクス遭遇で発火）。
+  </div>
+  <h3>次に詰めること</h3>
+  <ul>
+    <li>冒頭S1の動画生成用カット割りを、今回の20ビートからSeedance用プロンプトへ分割する。</li>
+    <li>共通デコード詠唱「コーデックス・アニマ。ヴォクス・シネ・ヴィア、アド・エピストラム・レディ。——デコード」を、全キャラの発声テンポに合わせて微調整する。</li>
+    <li>キャラシート画像を基準に、S1用のショット別プロンプト（ソル／ルゥ／アッシュ／エンバー／雨童／母子家庭の娘）を作る。</li>
+  </ul>
+</section>
+
+</div>
+
+<footer>
+  ポスト・アニマ Ver.3 公式設定資料 ／ 出典：00_世界観バイブル.md・01_キャラクター設定.md・02_第一話プロット.md ／ HTML更新：2026-06-05（基本設定再整理・関係性ページ再設計・相関図強化）
+</footer>
+
+<script>
+  (function(){
+    var pages = document.querySelectorAll('.page');
+    var tabs  = document.querySelectorAll('.tab');
+    function show(id){
+      var ok = false;
+      pages.forEach(function(p){ var on = p.id===id; p.classList.toggle('active', on); if(on) ok=true; });
+      if(!ok){ id='p1'; document.getElementById('p1').classList.add('active'); }
+      tabs.forEach(function(t){ t.classList.toggle('on', t.dataset.t===id); });
+      document.body.classList.toggle('wide-page', ['p1','p2','p3','p4'].indexOf(id)!==-1);
+      if(('#'+id)!==location.hash){ history.replaceState(null,'','#'+id); }
+      window.scrollTo(0,0);
+      requestAnimationFrame(function(){ window.scrollTo(0,0); });
+      setTimeout(function(){ window.scrollTo(0,0); }, 80);
+    }
+    tabs.forEach(function(t){ t.addEventListener('click', function(){ show(t.dataset.t); }); });
+    window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
+    window.addEventListener('load', function(){ if(location.hash) show(location.hash.slice(1)); });
+    show(location.hash ? location.hash.slice(1) : 'p1');
+  })();
+</script>
+
+<!-- editable matrix (plot page) -->
+<div class="mtx-modal" id="mtxModal">
+  <div class="box">
+    <h4 id="mtxModalTitle">JSON</h4>
+    <textarea id="mtxModalText" spellcheck="false"></textarea>
+    <div class="mrow">
+      <button id="mtxModalCancel">閉じる</button>
+      <button id="mtxModalOk" class="primary">適用</button>
+    </div>
+  </div>
+</div>
+<script>
+  (function(){
+    var KEY='postanima_mtx_v9_s1_20260606d';
+    ['postanima_mtx_v4_s1_20260604','postanima_mtx_v5_s1_20260605','postanima_mtx_v6_s1_20260606','postanima_mtx_v7_s1_20260606b','postanima_mtx_v8_s1_20260606c'].forEach(function(oldKey){
+      try{ localStorage.removeItem(oldKey); }catch(e){}
+    });
+    var saved={}; try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ saved={}; }
+    var defaults={}, models={}, history=[];
+    function persist(){ try{ localStorage.setItem(KEY, JSON.stringify(models)); }catch(e){} }
+    function clone(o){ return JSON.parse(JSON.stringify(o)); }
+    function pushHist(beforeJSON){ history.push(typeof beforeJSON==='string'?JSON.parse(beforeJSON):clone(beforeJSON)); if(history.length>80) history.shift(); }
+    function undo(){ if(!history.length){ return; } models=history.pop(); persist(); reloadAll(); }
+
+    function domToModel(tbl){
+      var heads=[].map.call(tbl.querySelectorAll('thead th'), function(th){ return th.innerHTML.trim(); });
+      var rows=[].map.call(tbl.querySelectorAll('tbody tr'), function(tr){
+        return { cells:[].map.call(tr.querySelectorAll('td'), function(td){ return td.innerHTML.trim(); }),
+                 peak: tr.classList.contains('peakrow') };
+      });
+      return { heads:heads, rows:rows };
+    }
+    function keyFor(tbl, idx){
+      var wrap=tbl.closest('.mtx-wrap');
+      var band=wrap ? wrap.previousElementSibling : null;
+      var label=(band && band.classList && band.classList.contains('plotband')) ? band.textContent.trim().slice(0,20) : '';
+      return 'm'+idx+'_'+label;
+    }
+    function render(tbl, m){
+      var h='<thead><tr>';
+      m.heads.forEach(function(head,c){
+        h+='<th data-c="'+c+'"><span class="hlabel" contenteditable="true" data-c="'+c+'">'+head+'</span>'+
+           '<span class="colctl">'+
+           '<button class="minib" data-act="colleft" data-c="'+c+'" title="列を左へ">◀</button>'+
+           '<button class="minib" data-act="colright" data-c="'+c+'" title="列を右へ">▶</button>'+
+           '<button class="minib" data-act="coldel" data-c="'+c+'" title="列を削除">✕</button>'+
+           '</span></th>';
+      });
+      h+='<th class="rowctl">操作</th></tr></thead><tbody>';
+      m.rows.forEach(function(row,r){
+        h+='<tr'+(row.peak?' class="peakrow"':'')+' data-r="'+r+'">';
+        row.cells.forEach(function(cell,c){
+          h+='<td contenteditable="true" data-r="'+r+'" data-c="'+c+'">'+(cell||'')+'</td>';
+        });
+        h+='<td class="rowctl">'+
+           '<button class="minib" data-act="up" data-r="'+r+'" title="上へ">↑</button>'+
+           '<button class="minib" data-act="down" data-r="'+r+'" title="下へ">↓</button>'+
+           '<button class="minib" data-act="star" data-r="'+r+'" title="強調の切替">★</button>'+
+           '<button class="minib" data-act="rowdel" data-r="'+r+'" title="行を削除">✕</button>'+
+           '</td></tr>';
+      });
+      h+='</tbody>';
+      tbl.innerHTML=h;
+    }
+    function swapCol(m,a,b){ var t=m.heads[a]; m.heads[a]=m.heads[b]; m.heads[b]=t;
+      m.rows.forEach(function(row){ var x=row.cells[a]; row.cells[a]=row.cells[b]; row.cells[b]=x; }); }
+
+    function setup(tbl, idx){
+      var key=keyFor(tbl, idx);
+      tbl.setAttribute('data-mtxkey', key);
+      defaults[key]=clone(domToModel(tbl));
+      models[key]= saved[key] ? saved[key] : clone(defaults[key]);
+      render(tbl, models[key]);
+      var wrap=tbl.closest('.mtx-wrap');
+      var tools=document.createElement('div');
+      tools.className='mtx-tools';
+      tools.innerHTML='<button data-act="addrow">＋ 行を追加</button>'+
+        '<button data-act="addcol">＋ 列を追加</button>'+
+        '<span class="sep"></span>'+
+        '<span class="mtx-hint">↑↓＝行移動／◀▶＝列移動／★＝強調／編集は自動保存／↶で取り消し</span>';
+      wrap.parentNode.insertBefore(tools, wrap);
+      function rr(){ render(tbl, models[key]); persist(); }
+
+      tbl.addEventListener('input', function(e){
+        var t=e.target, m=models[key];
+        if(t.classList && t.classList.contains('hlabel')){ m.heads[+t.getAttribute('data-c')]=t.innerHTML; persist(); }
+        else if(t.tagName==='TD' && t.hasAttribute('contenteditable')){
+          var r=+t.getAttribute('data-r'), c=+t.getAttribute('data-c');
+          if(m.rows[r]) m.rows[r].cells[c]=t.innerHTML; persist();
+        }
+      });
+      tbl.addEventListener('click', function(e){
+        var b=e.target.closest('button.minib'); if(!b) return;
+        var act=b.getAttribute('data-act'), m=models[key];
+        var r=b.hasAttribute('data-r')?+b.getAttribute('data-r'):-1;
+        var c=b.hasAttribute('data-c')?+b.getAttribute('data-c'):-1;
+        var before=JSON.stringify(models);
+        if(act==='up' && r>0){ var x=m.rows[r]; m.rows[r]=m.rows[r-1]; m.rows[r-1]=x; }
+        else if(act==='down' && r<m.rows.length-1){ var y=m.rows[r]; m.rows[r]=m.rows[r+1]; m.rows[r+1]=y; }
+        else if(act==='rowdel'){ if(m.rows.length>1) m.rows.splice(r,1); }
+        else if(act==='star'){ m.rows[r].peak=!m.rows[r].peak; }
+        else if(act==='coldel'){ if(m.heads.length>1){ m.heads.splice(c,1); m.rows.forEach(function(row){ row.cells.splice(c,1); }); } }
+        else if(act==='colleft' && c>0){ swapCol(m,c,c-1); }
+        else if(act==='colright' && c<m.heads.length-1){ swapCol(m,c,c+1); }
+        if(JSON.stringify(models)!==before){ pushHist(before); rr(); }
+      });
+      tools.addEventListener('click', function(e){
+        var b=e.target.closest('button'); if(!b) return;
+        var act=b.getAttribute('data-act'), m=models[key];
+        var before=JSON.stringify(models);
+        if(act==='addrow'){ m.rows.push({cells:m.heads.map(function(){return '';}), peak:false}); }
+        else if(act==='addcol'){ m.heads.push('新しい列'); m.rows.forEach(function(row){ row.cells.push(''); }); }
+        if(JSON.stringify(models)!==before){ pushHist(before); rr(); }
+      });
+    }
+
+    var tables=[].slice.call(document.querySelectorAll('#p4 table.mtx'));
+    if(!tables.length) return;
+    tables.forEach(function(tbl, idx){ setup(tbl, idx); });
+    persist();
+
+    // cell-edit undo history (push pre-edit snapshot on focus-out if changed)
+    var p4el=document.getElementById('p4'), editBefore=null;
+    p4el.addEventListener('focusin', function(e){ if(e.target.isContentEditable) editBefore=JSON.stringify(models); });
+    p4el.addEventListener('focusout', function(e){ if(e.target.isContentEditable && editBefore!==null){ if(JSON.stringify(models)!==editBefore) pushHist(editBefore); editBefore=null; } });
+
+    // global bar (export / import / reset all)
+    var first=tables[0].closest('.mtx-wrap');
+    var band=first.previousElementSibling; // first plotband
+    var gbar=document.createElement('div');
+    gbar.className='mtx-globalbar';
+    gbar.innerHTML='<b>編集モード：</b><span class="mtx-hint">セルを直接編集できます（自動保存）。↶で一つ前に戻せます。</span>'+
+      '<span style="flex:1"></span>'+
+      '<button data-g="undo">↶ 一つ前に戻す</button>'+
+      '<button data-g="export">JSONで書き出し</button>'+
+      '<button data-g="import">JSONを読み込み</button>';
+    band.parentNode.insertBefore(gbar, band);
+
+    var modal=document.getElementById('mtxModal'),
+        mTitle=document.getElementById('mtxModalTitle'),
+        mText=document.getElementById('mtxModalText'),
+        mOk=document.getElementById('mtxModalOk'),
+        mCancel=document.getElementById('mtxModalCancel');
+    var mode='';
+    function openModal(title, text, m){ mTitle.textContent=title; mText.value=text; mode=m; modal.classList.add('on'); mText.focus(); mText.select(); }
+    function closeModal(){ modal.classList.remove('on'); }
+    function reloadAll(){ tables.forEach(function(tbl){ render(tbl, models[tbl.getAttribute('data-mtxkey')]); }); }
+
+    gbar.addEventListener('click', function(e){
+      var b=e.target.closest('button'); if(!b) return;
+      var g=b.getAttribute('data-g');
+      if(g==='export'){ openModal('JSONで書き出し（全コピーして共有できます）', JSON.stringify(models, null, 2), 'export'); }
+      else if(g==='import'){ openModal('JSONを読み込み（貼り付けて「適用」）', '', 'import'); }
+      else if(g==='undo'){ undo(); }
+    });
+    mCancel.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+    mOk.addEventListener('click', function(){
+      if(mode==='import'){
+        try{ var obj=JSON.parse(mText.value);
+          Object.keys(obj).forEach(function(k){ if(models.hasOwnProperty(k)) models[k]=obj[k]; });
+          persist(); reloadAll(); closeModal();
+        }catch(err){ alert('JSONの形式が正しくありません：'+err.message); }
+      } else { closeModal(); }
+    });
+  })();
+</script>
+</body>
+</html>
